@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/maximilian-hub/flavor-pairing-calculator#readme",
   "dependencies": {
+    "express": "^4.18.1",
     "fs": "^0.0.1-security",
     "sqlite3": "^5.1.2"
   }
