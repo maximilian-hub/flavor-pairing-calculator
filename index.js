@@ -1,14 +1,15 @@
 //load packages
-const sqlite3 = requite('sqlite3');
+const sqlite3 = require('sqlite3');
 const fs = require('fs');
 const express = require('express');
 
 //server initialization:
-const app = express();                              //start application
-app.listen(3000,                                    //start listening for requests
-    ()=> console.log("Listening at port 3000.")
+const app = express();              //start application
+app.listen(3000,                    //start listening for requests
+  ()=> console.log("Listening at port 3000.")
 );
-app.use(express.static('public'));
+app.use(express.static('public'));  //serve webpage from public directory
 
+  //routing POST requests
 
 //database stuff
