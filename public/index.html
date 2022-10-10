@@ -13,6 +13,23 @@
         <p>second ingredient:</p>
         <input type="text" name="ingredient2" />
     </form>
-    <button>calculate pairings</button>
+    <button id="requestButton">calculate pairings</button>
+
+    <script>
+      document.getElementById("requestButton")
+      .addEventListener("click", handleRequestButton);
+
+      const ingredient_1 = document.getElementById("ingredient1");
+      const ingredient_2 = document.getElementById("ingredient2");
+
+      function handleRequestButton() {
+        console.log("Request button clicked.");
+        fetch('/api', {
+          method: 'POST',
+          headers: {'Content-Type': 'text/plain'},
+          body: 'request data pfffbfbfbf'
+        });
+      }
+    </script>
   </body>
 </html>
