@@ -6,8 +6,8 @@ const bodyParser = require('body-parser');
 
 //server initialization:
 const app = express();              //start application
-app.listen(3000,                    //start listening for requests
-  ()=> console.log("Listening at port 3000.")
+app.listen(3000, ()=>               //start listening for requests
+  console.log("Listening at port 3000.")
 );
 app.use(express.static('public'));  //serve webpage from public directory
 app.post('/api', bodyParser.json(), handlePostRequest); //route POST requests
@@ -24,7 +24,6 @@ async function handlePostRequest (request,response) {
 
   let commonPairings = await getCommonPairings(request.body.ingredients);
 
-  //TODO: what exactly is happening here?
   response.json({
     status: "success",
     body: commonPairings
@@ -36,14 +35,25 @@ async function handlePostRequest (request,response) {
   Returns an array of pairings common to those ingredients.
 */
 async function getCommonPairings(requestedIngredients) {
+  let commonPairings = [];
+
   //grab all pairings of the user-requested ingredients:
   let allPairings = await getAllPairings(requestedIngredients);
 
   //look for matches
-  let commonPairings = findCommonPairings(allPairings);
+  console.log("Looking for common pairings...");
+  //for each pairing in the first set of pairings,
+  for (let i=0; i<allPairings[0].length; i++) {
+    //check if that pairing exists in the remaining sets of pairings
+    const currentPairing = allPairings[0][i];
+
+    if (isCommon(currentPairing, allPairings)) {
+      commonPairings.push(allPairings[0][i]);
+    }
+  }
+
   console.log("Common pairings: ");
   console.log(commonPairings);
-
   return commonPairings;
 }
 
@@ -66,29 +76,6 @@ function getAllPairings(requestedIngredients) {
   console.log("Query finished. allPairings: ");
   console.log(allPairings);
   return allPairings;
-}
-
-/*
-  Expects an array in which each element contains
-  the pairings of an ingredient.
-
-  Returns an array of the pairings shared by all ingredients.
-*/
-function findCommonPairings(allPairings) {
-  console.log("Looking for common pairings...");
-  let commonPairings = [];
-
-  //for each pairing in the first set of pairings,
-  for (let i=0; i<allPairings[0].length; i++) {
-    //check if that pairing exists in the remaining sets of pairings
-    const currentPairing = allPairings[0][i];
-
-    if (isCommon(currentPairing, allPairings)) {
-      commonPairings.push(allPairings[0][i]);
-    }
-  }
-
-  return commonPairings;
 }
 
 /*
@@ -115,6 +102,5 @@ function isCommon(currentPairing, allPairings) {
   }
   //if they all do, return true
   return true;
-  
 }
 

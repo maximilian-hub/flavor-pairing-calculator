@@ -24,7 +24,11 @@
       document.getElementById("requestButton")
       .addEventListener("click", handleRequestButton);
 
-
+      /*
+        Sends request to server.
+        Requested ingredients go out,
+        common pairings come back.
+      */
       async function handleRequestButton() {
         console.log("Request button clicked.");
         
@@ -42,6 +46,7 @@
       function getIngredientRequest() {
         const ingredient_1 = document.getElementById("ingredient1").value;
         const ingredient_2 = document.getElementById("ingredient2").value;
+        //TODO: allow for only 1 ingredient, and more than 2
         //TODO: check input
         return JSON.stringify(
           {ingredients: [ingredient_1, ingredient_2]}
@@ -49,17 +54,14 @@
       }
 
       function displayResults(data) {
-        const p = document.getElementById("results");
-
         let results = "";
 
         data.forEach((e)=>{
           results += e.pairing + "\n";
         });
 
-        console.log("results: " + results);
-        p.innerText = results;
-
+        document.getElementById("results")
+        .innerText = results;
       }
     </script>
   </body>
