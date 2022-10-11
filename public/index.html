@@ -25,14 +25,17 @@
       .addEventListener("click", handleRequestButton);
 
 
-      function handleRequestButton() {
+      async function handleRequestButton() {
         console.log("Request button clicked.");
-        fetch('/api', {
+        
+        const response = await fetch('/api', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: getIngredientRequest()
         });
 
+        const data = await response.json();
+        displayResults(data.body);
         //TODO: clear form
       }
 
@@ -43,6 +46,20 @@
         return JSON.stringify(
           {ingredients: [ingredient_1, ingredient_2]}
         );
+      }
+
+      function displayResults(data) {
+        const p = document.getElementById("results");
+
+        let results = "";
+
+        data.forEach((e)=>{
+          results += e.pairing + "\n";
+        });
+
+        console.log("results: " + results);
+        p.innerText = results;
+
       }
     </script>
   </body>
