@@ -9,9 +9,9 @@
     
     <form action="">
         <p>first ingredient:</p>
-        <input type="text" name="ingredient1" />
+        <input type="text" id="ingredient1" />
         <p>second ingredient:</p>
-        <input type="text" name="ingredient2" />
+        <input type="text" id="ingredient2" />
     </form>
     <button id="requestButton">calculate pairings</button>
 
@@ -19,16 +19,25 @@
       document.getElementById("requestButton")
       .addEventListener("click", handleRequestButton);
 
-      const ingredient_1 = document.getElementById("ingredient1");
-      const ingredient_2 = document.getElementById("ingredient2");
 
       function handleRequestButton() {
         console.log("Request button clicked.");
         fetch('/api', {
           method: 'POST',
-          headers: {'Content-Type': 'text/plain'},
-          body: 'request data pfffbfbfbf'
+          headers: {'Content-Type': 'application/json'},
+          body: getIngredientRequest()
         });
+
+        //TODO: clear form
+      }
+
+      function getIngredientRequest() {
+        const ingredient_1 = document.getElementById("ingredient1").value;
+        const ingredient_2 = document.getElementById("ingredient2").value;
+
+        return JSON.stringify(
+          {ingredients: [ingredient_1, ingredient_2]}
+        );
       }
     </script>
   </body>
