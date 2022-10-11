@@ -24,10 +24,11 @@ async function handlePostRequest (request,response) {
 
   let commonPairings = await getCommonPairings(request.body.ingredients);
 
-  response.body = {
+  //TODO: what exactly is happening here?
+  response.json({
     status: "success",
     body: commonPairings
-  }
+  });
 }
 
 /*
@@ -39,10 +40,11 @@ async function getCommonPairings(requestedIngredients) {
   let allPairings = await getAllPairings(requestedIngredients);
 
   //look for matches
-  //let commonPairings = findMatches(allPairings);
+  let commonPairings = findCommonPairings(allPairings);
+  console.log("Common pairings: ");
+  console.log(commonPairings);
 
-  //return matches
-  //return commonPairings;
+  return commonPairings;
 }
 
 /*
@@ -72,7 +74,47 @@ function getAllPairings(requestedIngredients) {
 
   Returns an array of the pairings shared by all ingredients.
 */
-function findMatches() {
+function findCommonPairings(allPairings) {
+  console.log("Looking for common pairings...");
+  let commonPairings = [];
 
+  //for each pairing in the first set of pairings,
+  for (let i=0; i<allPairings[0].length; i++) {
+    //check if that pairing exists in the remaining sets of pairings
+    const currentPairing = allPairings[0][i];
+
+    if (isCommon(currentPairing, allPairings)) {
+      commonPairings.push(allPairings[0][i]);
+    }
+  }
+
+  return commonPairings;
+}
+
+/*
+  Returns true if currentPairing is a pairing
+  of every other set of pairings in allPairings.
+*/
+function isCommon(currentPairing, allPairings) {
+  console.log("   Checking pairing:" + currentPairing.pairing);
+  //for each set of pairings other than the first,
+  for (let i=1; i<allPairings.length; i++) {
+    //check to see if it contains the currentPairing
+    let isCommon = false;
+    for (let j=0; j<allPairings[i].length; j++) {
+      if (allPairings[i][j].pairing == currentPairing.pairing) {
+        console.log("      ...found!");
+        isCommon = true;
+        break;
+      }
+      console.log("      nope...");
+    }
+    //if it doesn't, return false
+    if (!isCommon) return false;
+    //if it does, move on to the next set of pairings
+  }
+  //if they all do, return true
+  return true;
+  
 }
 
