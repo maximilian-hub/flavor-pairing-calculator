@@ -9,11 +9,16 @@
     
     <form action="">
         <p>first ingredient:</p>
-        <input type="text" id="ingredient1" />
+        <input type="text" id="ingredient1" value="parsley" />
         <p>second ingredient:</p>
-        <input type="text" id="ingredient2" />
+        <input type="text" id="ingredient2" value="garlic" />
     </form>
+
     <button id="requestButton">calculate pairings</button>
+
+    <h3>your ingredients all go with:</h3>
+    <p id="results"></p>
+    
 
     <script>
       document.getElementById("requestButton")
@@ -34,7 +39,7 @@
       function getIngredientRequest() {
         const ingredient_1 = document.getElementById("ingredient1").value;
         const ingredient_2 = document.getElementById("ingredient2").value;
-
+        //TODO: check input
         return JSON.stringify(
           {ingredients: [ingredient_1, ingredient_2]}
         );
