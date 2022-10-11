@@ -1,5 +1,5 @@
 //load packages
-const sqlite3 = require('sqlite3');
+const db = require('better-sqlite3')('db.sqlite');
 const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -11,16 +11,6 @@ app.listen(3000,                    //start listening for requests
 );
 app.use(express.static('public'));  //serve webpage from public directory
 app.post('/api', bodyParser.json(), handlePostRequest); //route POST requests
-
-//connect to database:
-const db = new sqlite3.Database(
-  'db.sqlite',
-  sqlite3.OPEN_READWRITE,
-  (err)=>{
-      if (err) console.error(err.message);
-      else console.log("Database connected. (db.sqlite)");
-  }
-);
 
 //mock data:
 //db.run('CREATE TABLE parsley(pairing VARCHAR(30), affinity int);');
@@ -47,7 +37,7 @@ async function handlePostRequest (request,response) {
 async function getCommonPairings(requestedIngredients) {
   //grab all pairings of the user-requested ingredients:
   let allPairings = await getAllPairings(requestedIngredients);
-  console.log(allPairings);
+
   //look for matches
   //let commonPairings = findMatches(allPairings);
 
@@ -65,16 +55,10 @@ function getAllPairings(requestedIngredients) {
 
   //query database
   for (let i=0; i<requestedIngredients.length; i++) {
-    let sql = 'SELECT * FROM ' + requestedIngredients[i] + ";";
-
-    db.all(sql, [], (err,rows) => {
-      if (err) console.error(err.message);
-      else {
-        allPairings.push(rows);
-        console.log("Query successful. Pushed rows to allPairings:");
-        console.log(rows);
-      }
-    });
+    const sql = 'SELECT * FROM ' + requestedIngredients[i] + ";";
+    const stmnt = db.prepare(sql);
+    const rows = stmnt.all();
+    allPairings.push(rows);
   }
 
   console.log("Query finished. allPairings: ");
