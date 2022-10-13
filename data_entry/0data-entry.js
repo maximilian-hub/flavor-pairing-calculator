@@ -31,9 +31,6 @@
     [ingredients]
 */
 
-
-
-
 const fs = require('fs').promises;
 
 //read files in ./unprocessed, write .csv files to ./processed
@@ -92,22 +89,8 @@ function ingredientsToCsvLines(ingredients, affinity) {
   return formattedText;
 }
 
-
-function printData(data) {
-  console.log(data);
-}
-
 processFiles('./unprocessed');
 
-//for each file in unprocessed,
-//make a .csv in parent directory with the same title
-
-//first line of csv: "pairing,affinity"
-//insert the +3 pairings
-//insert the +2 pairings
-//insert the +1 pairings
-
-//move the original file to /processed
 
 /*
   CREATE TABLE entryName(pairing VARCHAR(30), affinity int;
