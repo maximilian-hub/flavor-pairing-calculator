@@ -10,7 +10,7 @@
     cumin
     allspice
 
-  These ingredients are divided into 3 sections
+  These ingredients are divided into sections
   by double newlines:
     [ingredients]
 
@@ -19,7 +19,8 @@
     [ingredients]
   
   These indicate the affinity of the pairing.
-  First group is +3, then +2, then +1.
+  +4, +3, +2, +1, +0.
+
 
   Sometimes there are no pairings of an affinity.
   These are represented with hyphens.
@@ -35,16 +36,17 @@ const fs = require('fs').promises;
 
 //read files in ./unprocessed, write .csv files to ./processed
 async function processFiles(path) {
-  const files = await fs.readdir(path);
+  const fileNames = await fs.readdir(path);
 
   //for each file in ./unprocessed,
-  for (const fileName of files) {
+  for (const fileName of fileNames) {
     if (fileName == ".DS_Store") continue;
 
-    //replace .txt with .csv
+    //replace file extension (.txt -> .csv)
     const entryName = fileName.substring(0, fileName.length-4) + ".csv";
     const path = "./processed/" + entryName;
 
+    //format text body
     const csvFormattedText = await parseText(fileName);
 
     console.log("  Writing to file: " + path);
@@ -70,7 +72,7 @@ async function parseText(fileName) {
   for (let i=0; i<ingredientGroups.length; i++) {
     if (ingredientGroups[i] == "-") continue;
 
-    csvFormattedText += ingredientsToCsvLines(ingredientGroups[i], 3-i);
+    csvFormattedText += ingredientsToCsvLines(ingredientGroups[i], 4-i);
   }
 
   return csvFormattedText;
@@ -82,7 +84,7 @@ function ingredientsToCsvLines(ingredients, affinity) {
   const lines = ingredients.trim().split("\n");
 
   lines.forEach((line) => {
-    const fLine = line.replace(" ","-");
+    const fLine = line.replace(" ","_");
     formattedText += ("\n" + fLine + "," + affinity);
   });
 
