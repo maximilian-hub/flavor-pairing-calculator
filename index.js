@@ -103,4 +103,3 @@ function isCommon(currentPairing, allPairings) {
   //if they all do, return true
   return true;
 }
-

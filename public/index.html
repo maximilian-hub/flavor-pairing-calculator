@@ -7,12 +7,15 @@
     <h1>lets get those flavas</h1>
     <h2>enter your ingredients:</h2>
     
-    <form action="">
-        <p>first ingredient:</p>
-        <input type="text" id="ingredient1" value="parsley" />
-        <p>second ingredient:</p>
-        <input type="text" id="ingredient2" value="garlic" />
+    <form action="" id="ingredientForm">
+        <input type="text" value="apple" />
+        <input type="text" value="bacon" />
+        <input type="text" value="" />
+        <input type="text" value="" />
+        <input type="text" value="" />
+        <input type="text" value="" />
     </form>
+    <button id="addAnother">add another ingredient</button>
 
     <button id="requestButton">calculate pairings</button>
 
@@ -44,12 +47,21 @@
       }
 
       function getIngredientRequest() {
-        const ingredient_1 = document.getElementById("ingredient1").value;
-        const ingredient_2 = document.getElementById("ingredient2").value;
+        const form = document.getElementById("ingredientForm");
+        const formFields = form.children;
+        let requestedIngredients = [];
+
+        for (let i=0; i<formFields.length; i++) {
+          if (formFields[i].value) {
+            requestedIngredients.push(formFields[i].value);
+          }
+        }
+        console.log("requestedIngredients:");
+        console.log(requestedIngredients);
         //TODO: allow for only 1 ingredient, and more than 2
         //TODO: check input
         return JSON.stringify(
-          {ingredients: [ingredient_1, ingredient_2]}
+          {ingredients: requestedIngredients}
         );
       }
 
