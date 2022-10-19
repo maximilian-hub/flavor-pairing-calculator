@@ -2,18 +2,61 @@
   <head>
     <meta charset="utf-8">
     <title>flavor pairings calculator</title>
+    <style>
+      /*the container must be positioned relative:*/
+      .autocomplete {
+        position: relative;
+        display: inline-block;
+      }
+
+      .autocomplete-items {
+        position: absolute;
+        border: 1px solid #d4d4d4;
+        border-bottom: none;
+        border-top: none;
+        z-index: 99;
+        /*position the autocomplete items to be the same width as the container:*/
+        top: 100%;
+        left: 0;
+        right: 0;
+      }
+
+      .autocomplete-items div {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #fff; 
+        border-bottom: 1px solid #d4d4d4; 
+      }
+
+      /*when hovering an item:*/
+      .autocomplete-items div:hover {
+        background-color: #e9e9e9; 
+      }
+
+      /*when navigating through the items using the arrow keys:*/
+      .autocomplete-active {
+        background-color: DodgerBlue !important; 
+        color: #ffffff; 
+      }
+
+      input {
+        display:block;
+      }
+    </style>
   </head>
   <body>
     <h1>lets get those flavas</h1>
     <h2>enter your ingredients:</h2>
     
-    <form action="" id="ingredientForm">
-        <input type="text" value="apple" />
-        <input type="text" value="bacon" />
-        <input type="text" value="" />
-        <input type="text" value="" />
-        <input type="text" value="" />
-        <input type="text" value="" />
+    <form action="" id="ingredientForm" autocomplete="off">
+      <div class="autocomplete" id="autocomplete">
+        <input type="text" id="ingredient1" value="apple" />
+        <input type="text" id="ingredient2" value="bacon" />
+        <input type="text" id="ingredient3" value="" />
+        <input type="text" id="ingredient4" value="" />
+        <input type="text" id="ingredient5" value="" />
+        <input type="text" id="ingredient6" value="" />
+      </div>
     </form>
     <button id="addAnother">add another ingredient</button>
 
@@ -24,8 +67,15 @@
     
 
     <script>
-      document.getElementById("requestButton")
-      .addEventListener("click", handleRequestButton);
+      window.onload = init;
+
+      function init() {
+        document.getElementById("requestButton")
+        .addEventListener("click", handleRequestButton);
+
+        initAutoSuggest();
+      }
+      
 
       /*
         Sends request to server.
@@ -47,7 +97,7 @@
       }
 
       function getIngredientRequest() {
-        const form = document.getElementById("ingredientForm");
+        const form = document.getElementById("autocomplete");
         const formFields = form.children;
         let requestedIngredients = [];
 
@@ -58,7 +108,6 @@
         }
         console.log("requestedIngredients:");
         console.log(requestedIngredients);
-        //TODO: allow for only 1 ingredient, and more than 2
         //TODO: check input
         return JSON.stringify(
           {ingredients: requestedIngredients}
@@ -74,6 +123,143 @@
 
         document.getElementById("results")
         .innerText = results;
+      }
+
+      async function initAutoSuggest() {
+        const input_1 = document.getElementById("ingredient1");
+        const input_2 = document.getElementById("ingredient2");
+        const input_3 = document.getElementById("ingredient3");
+        const input_4 = document.getElementById("ingredient4");
+        const input_5 = document.getElementById("ingredient5");
+        const input_6 = document.getElementById("ingredient6");
+
+        const tableNameObjects = await getIngredientList();
+        let suggestables = [];
+
+        for (let i=0; i<tableNameObjects.length; i++) {
+          suggestables.push(tableNameObjects[i].name);
+        }
+
+
+
+        autocomplete(input_1, suggestables);
+        autocomplete(input_2, suggestables);
+        autocomplete(input_3, suggestables);
+        autocomplete(input_4, suggestables);
+        autocomplete(input_5, suggestables);
+        autocomplete(input_6, suggestables);
+      }
+
+      //autosuggest stuff
+      function autocomplete(inp, arr) {
+        console.log("calling autocomplete");
+        var currentFocus;
+
+        inp.addEventListener("input", function(e) {
+            var a, b, i, val = this.value;
+            /*close any already open lists of autocompleted values*/
+            closeAllLists();
+            if (!val) { return false;}
+            currentFocus = -1;
+            /*create a DIV element that will contain the items (values):*/
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            /*append the DIV element as a child of the autocomplete container:*/
+            this.parentNode.appendChild(a);
+            /*for each item in the array...*/
+            for (i = 0; i < arr.length; i++) {
+              /*check if the item starts with the same letters as the text field value:*/
+              if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                /*create a DIV element for each matching element:*/
+                b = document.createElement("DIV");
+                /*make the matching letters bold:*/
+                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                b.innerHTML += arr[i].substr(val.length);
+                /*insert a input field that will hold the current array item's value:*/
+                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                /*execute a function when someone clicks on the item value (DIV element):*/
+                    b.addEventListener("click", function(e) {
+                    /*insert the value for the autocomplete text field:*/
+                    inp.value = this.getElementsByTagName("input")[0].value;
+                    /*close the list of autocompleted values,
+                    (or any other open lists of autocompleted values:*/
+                    closeAllLists();
+                });
+                a.appendChild(b);
+              }
+            }
+        });
+        /*execute a function presses a key on the keyboard:*/
+        inp.addEventListener("keydown", function(e) {
+            var x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+              /*If the arrow DOWN key is pressed,
+              increase the currentFocus variable:*/
+              currentFocus++;
+              /*and and make the current item more visible:*/
+              addActive(x);
+            } else if (e.keyCode == 38) { //up
+              /*If the arrow UP key is pressed,
+              decrease the currentFocus variable:*/
+              currentFocus--;
+              /*and and make the current item more visible:*/
+              addActive(x);
+            } else if (e.keyCode == 13) {
+              /*If the ENTER key is pressed, prevent the form from being submitted,*/
+              e.preventDefault();
+              if (currentFocus > -1) {
+                /*and simulate a click on the "active" item:*/
+                if (x) x[currentFocus].click();
+              }
+            }
+        });
+        function addActive(x) {
+          /*a function to classify an item as "active":*/
+          if (!x) return false;
+          /*start by removing the "active" class on all items:*/
+          removeActive(x);
+          if (currentFocus >= x.length) currentFocus = 0;
+          if (currentFocus < 0) currentFocus = (x.length - 1);
+          /*add class "autocomplete-active":*/
+          x[currentFocus].classList.add("autocomplete-active");
+        }
+        function removeActive(x) {
+          /*a function to remove the "active" class from all autocomplete items:*/
+          for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("autocomplete-active");
+          }
+        }
+        function closeAllLists(elmnt) {
+          /*close all autocomplete lists in the document,
+          except the one passed as an argument:*/
+          var x = document.getElementsByClassName("autocomplete-items");
+          for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+            x[i].parentNode.removeChild(x[i]);
+          }
+        }
+      }
+      /*execute a function when someone clicks in the document:*/
+      document.addEventListener("click", function (e) {
+          closeAllLists(e.target);
+      });
+      }
+
+      /*
+        Requests the server for a list of all ingredients
+        in the database.
+        Returns an array containing these names.
+      */
+      async function getIngredientList() {
+        let response = await fetch('/api', {
+          method: 'GET'
+        });
+
+        let data = await response.json();
+
+        return data.body;
       }
     </script>
   </body>

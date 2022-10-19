@@ -11,6 +11,7 @@ app.listen(3000, ()=>               //start listening for requests
 );
 app.use(express.static('public'));  //serve webpage from public directory
 app.post('/api', bodyParser.json(), handlePostRequest); //route POST requests
+app.get('/api', handleGetRequest);
 
 //mock data:
 //db.run('CREATE TABLE parsley(pairing VARCHAR(30), affinity int);');
@@ -27,6 +28,18 @@ async function handlePostRequest (request,response) {
   response.json({
     status: "success",
     body: commonPairings
+  });
+}
+
+async function handleGetRequest (request, response) {
+  //client GET requests are always for a list of all db table names
+  console.log("GET request recieved:");
+
+  const tableNames = await getTableNames();
+
+  response.json({
+    status: "success",
+    body: tableNames
   });
 }
 
@@ -102,4 +115,20 @@ function isCommon(currentPairing, allPairings) {
   }
   //if they all do, return true
   return true;
+}
+
+function getTableNames(){
+  const sql = "SELECT name\n" +
+              "FROM sqlite_schema\n" +
+              "WHERE\n" +
+              "  type = 'table' AND\n" +
+              "  name NOT LIKE 'sqlite_%';";
+  
+  const stmnt = db.prepare(sql);
+  const tableNames = stmnt.all();
+
+  console.log("  Returning:");
+  console.log(tableNames);
+
+  return tableNames;
 }
