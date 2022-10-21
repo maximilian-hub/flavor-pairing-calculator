@@ -85,9 +85,7 @@ function getAllPairings(requestedIngredients) {
     const rows = stmnt.all();
     allPairings.push(rows);
   }
-
-  console.log("Query finished. allPairings: ");
-  console.log(allPairings);
+  
   return allPairings;
 }
 
@@ -107,10 +105,12 @@ function isCommon(currentPairing, allPairings) {
         isCommon = true;
         break;
       }
-      console.log("      nope...");
     }
     //if it doesn't, return false
-    if (!isCommon) return false;
+    if (!isCommon) {
+      console.log("      ...nope.");
+      return false;
+    }
     //if it does, move on to the next set of pairings
   }
   //if they all do, return true
@@ -126,9 +126,5 @@ function getTableNames(){
   
   const stmnt = db.prepare(sql);
   const tableNames = stmnt.all();
-
-  console.log("  Returning:");
-  console.log(tableNames);
-
   return tableNames;
 }
