@@ -58,7 +58,7 @@
         <input type="text" id="ingredient6" value="" />
       </div>
     </form>
-    <button id="addAnother">add another ingredient</button>
+
 
     <button id="requestButton">calculate pairings</button>
 
@@ -68,8 +68,11 @@
 
     <script>
       window.onload = init;
+      let allIngredientNames = [];
 
-      function init() {
+      async function init() {
+        allIngredientNames = await getAllIngredientNames();
+
         document.getElementById("requestButton")
         .addEventListener("click", handleRequestButton);
 
@@ -84,34 +87,61 @@
       */
       async function handleRequestButton() {
         console.log("Request button clicked.");
-        
-        const response = await fetch('/api', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: getIngredientRequest()
-        });
 
-        const data = await response.json();
-        displayResults(data.body);
-        //TODO: clear form
+        const ingredientRequest = await getIngredientRequest(); 
+
+        if (ingredientRequest) {
+          const response = await fetch('/api', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: ingredientRequest
+          });
+
+          const data = await response.json();
+          displayResults(data.body);
+        }
       }
 
-      function getIngredientRequest() {
-        const form = document.getElementById("autocomplete");
+      async function getIngredientRequest() {
+        const form = document.getElementById("autocomplete"); //the parent element of the input fields
         const formFields = form.children;
         let requestedIngredients = [];
 
         for (let i=0; i<formFields.length; i++) {
-          if (formFields[i].value) {
+          const currentIngredient = formFields[i].value;
+
+          if (!currentIngredient) continue;
+
+          if (allIngredientNames.includes(currentIngredient)) {
             requestedIngredients.push(formFields[i].value);
+          } else {
+            alert("'" + currentIngredient + "' is not a valid ingredient name.");
+            return null;
           }
         }
-        console.log("requestedIngredients:");
-        console.log(requestedIngredients);
         //TODO: check input
         return JSON.stringify(
           {ingredients: requestedIngredients}
         );
+      }
+
+      //returns an array of all ingredient names
+      async function getAllIngredientNames() {
+        let allIngredientNames = [];
+
+        //send server request
+        let response = await fetch('/api', {
+          method: 'GET'
+        });
+
+        //parse server response
+        const serverData = await response.json();
+        const tableObjects = serverData.body;
+        for (let i=0; i<tableObjects.length; i++) {
+          allIngredientNames.push(tableObjects[i].name);
+        }
+
+        return allIngredientNames;
       }
 
       function displayResults(data) {
@@ -133,21 +163,12 @@
         const input_5 = document.getElementById("ingredient5");
         const input_6 = document.getElementById("ingredient6");
 
-        const tableNameObjects = await getIngredientList();
-        let suggestables = [];
-
-        for (let i=0; i<tableNameObjects.length; i++) {
-          suggestables.push(tableNameObjects[i].name);
-        }
-
-
-
-        autocomplete(input_1, suggestables);
-        autocomplete(input_2, suggestables);
-        autocomplete(input_3, suggestables);
-        autocomplete(input_4, suggestables);
-        autocomplete(input_5, suggestables);
-        autocomplete(input_6, suggestables);
+        autocomplete(input_1, allIngredientNames);
+        autocomplete(input_2, allIngredientNames);
+        autocomplete(input_3, allIngredientNames);
+        autocomplete(input_4, allIngredientNames);
+        autocomplete(input_5, allIngredientNames);
+        autocomplete(input_6, allIngredientNames);
       }
 
       //autosuggest stuff
@@ -250,16 +271,10 @@
       /*
         Requests the server for a list of all ingredients
         in the database.
-        Returns an array containing these names.
+        Returns an array of objects containing these names.
       */
       async function getIngredientList() {
-        let response = await fetch('/api', {
-          method: 'GET'
-        });
-
-        let data = await response.json();
-
-        return data.body;
+        
       }
     </script>
   </body>
