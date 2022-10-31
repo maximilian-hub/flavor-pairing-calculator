@@ -13,21 +13,17 @@ app.use(express.static('public'));  //serve webpage from public directory
 app.post('/api', bodyParser.json(), handlePostRequest); //route POST requests
 app.get('/api', handleGetRequest);
 
-//mock data:
-//db.run('CREATE TABLE parsley(pairing VARCHAR(30), affinity int);');
-//db.run('CREATE TABLE garlic(pairing VARCHAR(30), affinity int);');
-//db.run("INSERT INTO parsley VALUES('tomato',1), ('marjoram',1);");
-//db.run("INSERT INTO garlic VALUES('tomato',1), ('bacon',1);");
-
 async function handlePostRequest (request,response) {
   console.log("POST request recieved:");
   console.log(request.body);              //should be a list of ingredient names
 
-  let commonPairings = await getCommonPairings(request.body.ingredients);
+  const commonPairings = await getCommonPairings(request.body.ingredients);
+  const mismatchedIngredients = getMismatchedIngredients(request.body.ingredients); 
 
   response.json({
     status: "success",
-    body: commonPairings
+    body: commonPairings,
+    mismatchedIngredients: mismatchedIngredients
   });
 }
 
@@ -72,6 +68,7 @@ async function getCommonPairings(requestedIngredients) {
 
 /*
   Expects an array of valid ingredient names.
+
   Returns an array in which each element contains
   the pairings of an ingredient.
 */
@@ -90,25 +87,25 @@ function getAllPairings(requestedIngredients) {
 }
 
 /*
+  Expects a valid ingredient name as the 
+  first parameter, and a 
+
   Returns true if currentPairing is a pairing
   of every other set of pairings in allPairings.
 */
 function isCommon(currentPairing, allPairings) {
-  console.log("   Checking pairing:" + currentPairing.pairing);
   //for each set of pairings other than the first,
   for (let i=1; i<allPairings.length; i++) {
     //check to see if it contains the currentPairing
     let isCommon = false;
     for (let j=0; j<allPairings[i].length; j++) {
       if (allPairings[i][j].pairing == currentPairing.pairing) {
-        console.log("      ...found!");
         isCommon = true;
         break;
       }
     }
     //if it doesn't, return false
     if (!isCommon) {
-      console.log("      ...nope.");
       return false;
     }
     //if it does, move on to the next set of pairings
@@ -116,13 +113,64 @@ function isCommon(currentPairing, allPairings) {
   //if they all do, return true
   return true;
 }
+/*
+  Expects an array of valid ingredient names.
+
+  Returns an array of those ingredients not
+  listed as pairings of each other.
+*/
+function getMismatchedIngredients(ingredients) {
+  //ingredients = [apple, bacon, cream]
+  
+  let mismatchedIngredients = [];
+
+  for (let i=0; i<ingredients.length-1; i++) {
+    for (let j=i+1; j<ingredients.length; j++) {
+      if (isLegitPairing(ingredients[i], ingredients[j])) {
+        continue;
+      } else {
+        mismatchedIngredients.push([ingredients[i], ingredients[j]]);
+      }
+    }
+  }
+
+  return mismatchedIngredients;
+}
+
+/*
+  Expects two valid ingredient names.
+
+  Checks if the ingredients are listed as
+  pairings of each other.
+*/
+function isLegitPairing(ingredient_A, ingredient_B) {
+  let isLegit = false;
+
+  console.log("isLegitPairing: comparing " + ingredient_A + " to " + ingredient_B);
+
+  //assuming pairings are always listed in each other's tables (TODO: make this so!)
+  //query database for ingredient_A's pairings:
+  const sql = "SELECT pairing FROM " + ingredient_A + ";";
+  const stmnt = db.prepare(sql);
+  const pairingsOfIngredient_A = stmnt.all();
+
+  //check if those pairings contain ingredient_B
+  for (let i=0; i<pairingsOfIngredient_A.length; i++) {
+    if (pairingsOfIngredient_A[i].pairing == ingredient_B) {
+      isLegit = true;
+      break;
+    }
+  }
+
+  return isLegit;
+}
 
 function getTableNames(){
   const sql = "SELECT name\n" +
               "FROM sqlite_schema\n" +
               "WHERE\n" +
               "  type = 'table' AND\n" +
-              "  name NOT LIKE 'sqlite_%';";
+              "  name NOT LIKE 'sqlite_%';";   //gotta leave out the schema tables that deal with metadata
   
   const stmnt = db.prepare(sql);
   const tableNames = stmnt.all();

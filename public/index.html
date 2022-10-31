@@ -3,6 +3,12 @@
     <meta charset="utf-8">
     <title>flavor pairings calculator</title>
     <style>
+      p#warnings {
+        color: red;
+        font-style: italic;
+        font-size: small;
+      }
+
       /*the container must be positioned relative:*/
       .autocomplete {
         position: relative;
@@ -59,9 +65,9 @@
       </div>
     </form>
 
-
     <button id="requestButton">calculate pairings</button>
-
+    <p id="warnings"></p>
+    
     <h3>your ingredients all go with:</h3>
     <p id="results"></p>
     
@@ -99,6 +105,7 @@
 
           const data = await response.json();
           displayResults(data.body);
+          displayWarnings(data.mismatchedIngredients);
         }
       }
 
@@ -153,6 +160,20 @@
 
         document.getElementById("results")
         .innerText = results;
+      }
+
+      function displayWarnings(mismatchedIngredients) {
+        const warningElement = document.getElementById("warnings");
+        let warningText = "";
+
+        for (let i=0; i<mismatchedIngredients.length; i++) {
+          warningText += "Warning: " + mismatchedIngredients[i][0] + 
+                          " and " + mismatchedIngredients[i][1] + 
+                          " may not go together.\n";
+        }
+
+        warningElement.innerText = warningText;
+
       }
 
       async function initAutoSuggest() {
