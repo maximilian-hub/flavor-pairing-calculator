@@ -1,0 +1,26 @@
+/*HEADER*/
+
+#header-container {
+  background-color: rgb(1, 4, 17);
+  color: white;
+  flex: 0 0 100px;
+  width: 100%;
+}
+
+#header-main {
+  position: relative;
+  top: 30px;
+  left: 30px;
+}
+
+#header-about {
+  position: absolute;
+  top: 35px;
+  right: 150px;
+}
+
+#header-funstuff {
+  position: absolute;
+  top: 35px;
+  right: 25px;
+}
