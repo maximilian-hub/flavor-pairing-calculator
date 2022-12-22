@@ -33,10 +33,11 @@ function App() {
   //state
   const [requestedIngredients, setRequestedIngredients] = useState([
     "apple",
-    "bacon",
+    "chicken",
   ]);
 
   const [resultIngredients, setResultIngredients] = useState([]);
+  const [mismatchedIngredients, setMismatchedIngredients] = useState([]);
 
   //send POST request whenever requestedIngredients is updated:
   useEffect(() => {
@@ -52,6 +53,7 @@ function App() {
       const data = await response.json();
       console.log(data);
       setResultIngredients(data.body);
+      setMismatchedIngredients(data.mismatchedIngredients);
     }
 
     //only send request if there are requested ingredients:
@@ -63,7 +65,10 @@ function App() {
   }, [requestedIngredients]);
 
   function addRequestedIngredient(ingredient) {
-    if (ALL_INGREDIENT_NAMES.includes(ingredient)) {
+    if (
+      ALL_INGREDIENT_NAMES.includes(ingredient) && //if the ingredient is valid
+      !requestedIngredients.includes(ingredient) //if it's not a repeat
+    ) {
       setRequestedIngredients([...requestedIngredients, ingredient]);
     } else {
       alert(
@@ -80,6 +85,30 @@ function App() {
     setRequestedIngredients(updatedList);
   }
 
+  function getWarnings(ingredient) {
+    // global variable mismatchedIngredients
+    // is an array of ingredient pairs, eg:
+    //   [["bacon","almond"],["almond","lime"]]
+
+    // This function provides request Ingredient
+    // components with an array of ingredient names
+    // for which they are mismatched.
+
+    // For the example data above, given "almond"
+    // as a parameter, this function should return:
+    //   ["bacon","lime"]
+
+    let warnings = new Array();
+
+    for (let i = 0; i < mismatchedIngredients.length; i++) {
+      if (mismatchedIngredients[i].includes(ingredient)) {
+        warnings.push(theOtherOne(ingredient, mismatchedIngredients[i]));
+      }
+    }
+    console.log(`warnings for ${ingredient}:\n${warnings}`);
+    return warnings;
+  }
+
   //component tree:
   return (
     <>
@@ -90,6 +119,7 @@ function App() {
           type="requests"
           removeRequestedIngredient={removeRequestedIngredient}
           ingredientList={requestedIngredients}
+          getWarnings={getWarnings}
         ></Subpanel>
         <i id="arrow-icon" className="fa-regular fa-circle-right"></i>
         <Subpanel
@@ -103,3 +133,15 @@ function App() {
 }
 
 export default App;
+
+function theOtherOne(ingredient, mismatchedPair) {
+  let theOtherOne = "";
+
+  if (mismatchedPair[0] === ingredient) {
+    theOtherOne = mismatchedPair[1];
+  } else {
+    theOtherOne = mismatchedPair[0];
+  }
+
+  return theOtherOne;
+}

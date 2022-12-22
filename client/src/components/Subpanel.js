@@ -16,6 +16,7 @@ export default function Subpanel(props) {
           key={index}
           type={props.type}
           removeRequestedIngredient={props.removeRequestedIngredient}
+          warnings={props.getWarnings(ingredient)}
         />
       );
     });
