@@ -121,6 +121,10 @@ body {
   text-transform: uppercase;
 }
 
+.ingredient-container.warning {
+  background: rgb(195, 99, 99);
+}
+
 .icon-button {
   flex: 0 0 40px;
   font-size: xx-large;

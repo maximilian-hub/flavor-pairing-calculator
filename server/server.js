@@ -83,8 +83,6 @@ async function getCommonPairings(requestedIngredients) {
 }
 
 function getAverageAffinity(currentPairing, allPairings) {
-  console.log(`currentPairing: ${currentPairing.pairing}`);
-
   let affinities = [];
   affinities.push(currentPairing.affinity);
 
@@ -97,18 +95,20 @@ function getAverageAffinity(currentPairing, allPairings) {
     }
   }
 
-  console.log(`affinites: ${affinities}`);
-
-  let affinitySum = 0;
-  for (let i = 0; i < affinities.length; i++) {
-    affinitySum += affinities[i];
-  }
-  console.log(`affinitySum: ${affinitySum}`);
-
-  let affinityAverage = affinitySum / affinities.length;
-  console.log(`affinityAverage: ${affinityAverage}`);
+  const affinityAverage = average(affinities);
 
   return Math.round(affinityAverage);
+}
+
+function average(arrayOfNumbers) {
+  let sum = 0;
+  for (let i = 0; i < arrayOfNumbers.length; i++) {
+    sum += arrayOfNumbers[i];
+  }
+
+  const average = sum / arrayOfNumbers.length;
+
+  return average;
 }
 
 /*
@@ -175,7 +175,7 @@ function getMismatchedIngredients(ingredients) {
       }
     }
   }
-
+  console.log(`mismatchedIngredients:\n${mismatchedIngredients}`);
   return mismatchedIngredients;
 }
 
