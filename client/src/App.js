@@ -38,6 +38,7 @@ function App() {
 
   const [resultIngredients, setResultIngredients] = useState([]);
   const [mismatchedIngredients, setMismatchedIngredients] = useState([]);
+  const [forbiddenIngredients, setForbiddenIngredients] = useState([]);
 
   //send POST request whenever requestedIngredients is updated:
   useEffect(() => {
@@ -54,6 +55,7 @@ function App() {
       console.log(data);
       setResultIngredients(data.body);
       setMismatchedIngredients(data.mismatchedIngredients);
+      setForbiddenIngredients(data.forbiddenIngredients);
     }
 
     //only send request if there are requested ingredients:
@@ -109,6 +111,30 @@ function App() {
     return warnings;
   }
 
+  function getStrongWarnings(ingredient) {
+    // global variable mismatchedIngredients
+    // is an array of ingredient pairs, eg:
+    //   [["bacon","almond"],["almond","lime"]]
+
+    // This function provides request Ingredient
+    // components with an array of ingredient names
+    // for which they are mismatched.
+
+    // For the example data above, given "almond"
+    // as a parameter, this function should return:
+    //   ["bacon","lime"]
+
+    let strongWarnings = new Array();
+
+    for (let i = 0; i < forbiddenIngredients.length; i++) {
+      if (forbiddenIngredients[i].includes(ingredient)) {
+        strongWarnings.push(theOtherOne(ingredient, forbiddenIngredients[i]));
+      }
+    }
+
+    return strongWarnings;
+  }
+
   //component tree:
   return (
     <>
@@ -120,6 +146,7 @@ function App() {
           removeRequestedIngredient={removeRequestedIngredient}
           ingredientList={requestedIngredients}
           getWarnings={getWarnings}
+          getStrongWarnings={getStrongWarnings}
         ></Subpanel>
         <i id="arrow-icon" className="fa-regular fa-circle-right"></i>
         <Subpanel

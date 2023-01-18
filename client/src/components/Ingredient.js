@@ -51,9 +51,9 @@ export default function Ingredient(props) {
     let containerClassName = "ingredient-container";
 
     if (props.type === "requests") {
-      if (props.warnings.length > 0) {
-        containerClassName += " warning";
-      }
+      if (props.warnings.length > 0) containerClassName += " warning";
+      if (props.strongWarnings.length > 0)
+        containerClassName += " strongwarning";
     }
 
     return containerClassName;

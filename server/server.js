@@ -36,11 +36,19 @@ async function handlePostRequest(request, response) {
   const mismatchedIngredients = getMismatchedIngredients(
     request.body.ingredients
   );
+  const forbiddenIngredients = getForbiddenIngredients(
+    request.body.ingredients
+  );
+
+  console.log("Sending off common pairings.");
+  console.log(`mismatchedIngredients:\n${mismatchedIngredients}`);
+  console.log(`forbiddenIngredients:\n${forbiddenIngredients}`);
 
   response.json({
     status: "success",
     body: commonPairings,
     mismatchedIngredients: mismatchedIngredients,
+    forbiddenIngredients: forbiddenIngredients,
   });
 }
 
@@ -176,38 +184,98 @@ function getMismatchedIngredients(ingredients) {
       }
     }
   }
-  console.log(`mismatchedIngredients:\n${mismatchedIngredients}`);
+  console.log(`  mismatchedIngredients:\n${mismatchedIngredients}`);
   return mismatchedIngredients;
+}
+
+function getForbiddenIngredients(ingredients) {
+  /*
+  Expects an array of valid ingredient names.
+
+  Returns an array of those ingredients for whom
+  at least one lists the other as a pairing to avoid.
+  */
+
+  let forbiddenIngredients = [];
+
+  for (let i = 0; i < ingredients.length - 1; i++) {
+    for (let j = i + 1; j < ingredients.length; j++) {
+      if (isForbiddenPairing(ingredients[i], ingredients[j])) {
+        console.log(
+          `getForbiddenIngredients: Pushing [${ingredients[i]},${ingredients[j]}] to forbiddenIngredients.`
+        );
+        forbiddenIngredients.push([ingredients[i], ingredients[j]]);
+      } else {
+        continue;
+      }
+    }
+  }
+
+  console.log(`  forbiddenIngredients:\n${forbiddenIngredients}`);
+  return forbiddenIngredients;
 }
 
 /*
   Expects two valid ingredient names.
 
   Checks if the ingredients are listed as
-  pairings of each other.
+  good pairings of each other.
 */
 function isLegitPairing(ingredient_A, ingredient_B) {
   let isLegit = false;
 
-  console.log(
-    "isLegitPairing: comparing " + ingredient_A + " to " + ingredient_B
-  );
-
   //assuming pairings are always listed in each other's tables (TODO: make this so!)
-  //query database for ingredient_A's pairings:
-  const sql = "SELECT pairing FROM " + ingredient_A + ";";
-  const stmnt = db.prepare(sql);
-  const pairingsOfIngredient_A = stmnt.all();
+  const pairingsOfIngredient_A = getPairings(ingredient_A);
 
   //check if those pairings contain ingredient_B
   for (let i = 0; i < pairingsOfIngredient_A.length; i++) {
-    if (pairingsOfIngredient_A[i].pairing == ingredient_B) {
+    if (pairingsOfIngredient_A[i].pairing === ingredient_B) {
       isLegit = true;
       break;
     }
   }
 
   return isLegit;
+}
+
+function getPairings(ingredient) {
+  /*
+    Given a valid ingredient name,
+    returns an array of objects
+    containing all that
+    ingredient's pairings.
+  */
+  const sql = "SELECT * FROM " + ingredient + ";";
+  const stmnt = db.prepare(sql);
+  const pairings = stmnt.all();
+
+  return pairings;
+}
+
+function isForbiddenPairing(ingredient_A, ingredient_B) {
+  /*
+    Returns true if either ingredient lists the other 
+    as a bad pairing.
+  */
+  if (A_forbids_B(ingredient_A, ingredient_B)) return true;
+  if (A_forbids_B(ingredient_B, ingredient_A)) return true;
+  return false;
+}
+
+function A_forbids_B(ingredient_A, ingredient_B) {
+  const pairingsOfIngredient_A = getPairings(ingredient_A);
+
+  for (let i = 0; i < pairingsOfIngredient_A.length; i++) {
+    let currentPairing = pairingsOfIngredient_A[i];
+    if (
+      currentPairing.pairing === ingredient_B &&
+      currentPairing.affinity === 0
+    ) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 function getTableNames() {
