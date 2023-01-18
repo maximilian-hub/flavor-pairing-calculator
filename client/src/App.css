@@ -122,6 +122,10 @@ body {
 }
 
 .ingredient-container.warning {
+  background: rgb(195, 189, 99);
+}
+
+.ingredient-container.strongwarning {
   background: rgb(195, 99, 99);
 }
 

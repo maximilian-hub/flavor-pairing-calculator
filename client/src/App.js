@@ -5,8 +5,8 @@ import InputField from "./components/InputField.js";
 import BodyPanel from "./components/BodyPanel.js";
 import Subpanel from "./components/Subpanel.js";
 
-//returns an array of all ingredient names
 async function getAllIngredientNames() {
+  //returns an array of all ingredient names
   let allIngredientNames = [];
 
   //send server request
@@ -67,7 +67,7 @@ function App() {
   function addRequestedIngredient(ingredient) {
     if (
       ALL_INGREDIENT_NAMES.includes(ingredient) && //if the ingredient is valid
-      !requestedIngredients.includes(ingredient) //if it's not a repeat
+      !requestedIngredients.includes(ingredient) //if it's not a repeat TODO: fix this so repeats don't show "we don't have this" message
     ) {
       setRequestedIngredients([...requestedIngredients, ingredient]);
     } else {
@@ -135,6 +135,10 @@ function App() {
 export default App;
 
 function theOtherOne(ingredient, mismatchedPair) {
+  /*
+    Given one ingredient of a mismatched pair,
+    and the pair itself, returns the other one.
+  */
   let theOtherOne = "";
 
   if (mismatchedPair[0] === ingredient) {

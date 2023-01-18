@@ -17,9 +17,11 @@ app.get("/api", handleGetRequest);
 
 /*
   POST requests send the server an array of 
-  validated ingredient name.
+  validated ingredient names.
 
-  In response, they expect an array of objects:
+  In response, they expect an array of objects
+  representing the pairings common to the
+  given ingredients:
     [
       {pairing: "apple", affinity:3},
       {pairing: "bacon", affinity:1},
@@ -155,6 +157,7 @@ function isCommon(currentPairing, allPairings) {
   //if they all do, return true
   return true;
 }
+
 /*
   Expects an array of valid ingredient names.
 
@@ -162,8 +165,6 @@ function isCommon(currentPairing, allPairings) {
   listed as pairings of each other.
 */
 function getMismatchedIngredients(ingredients) {
-  //ingredients = [apple, bacon, cream]
-
   let mismatchedIngredients = [];
 
   for (let i = 0; i < ingredients.length - 1; i++) {

@@ -21,17 +21,19 @@ export default function Subpanel(props) {
       );
     });
   } else if (props.type === "results") {
-    INGREDIENT_ARRAY = props.ingredientList.map((ingredient, index) => {
-      return (
-        <Ingredient
-          value={ingredient.pairing}
-          affinity={ingredient.affinity}
-          key={index}
-          type={props.type}
-          addRequestedIngredient={props.addRequestedIngredient}
-        />
-      );
-    });
+    INGREDIENT_ARRAY = props.ingredientList
+      .filter((ingredient) => ingredient.affinity !== 0) // don't show "AVOID" pairings in the results
+      .map((ingredient, index) => {
+        return (
+          <Ingredient
+            value={ingredient.pairing}
+            affinity={ingredient.affinity}
+            key={index}
+            type={props.type}
+            addRequestedIngredient={props.addRequestedIngredient}
+          />
+        );
+      });
   }
 
   return (
