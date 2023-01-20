@@ -37,6 +37,7 @@ body {
   text-align: center;
   flex: 0 0 85px;
   margin: 20px;
+  padding: 3px;
 }
 
 #inputfield {
@@ -48,7 +49,15 @@ body {
   justify-content: center;
   border-color: black;
   border-radius: 20px;
-  border-style: groove;
+  outline: none;
+}
+
+#inputfield:focus {
+  z-index: 2000;
+  border-color: rgb(7 50 125);
+  outline-style: solid;
+  outline-width: 2px;
+  outline-color: rgb(84, 98, 203);
 }
 
 /*BODY PANEL*/
@@ -124,14 +133,22 @@ body {
 .ingredient-container.warning {
   background: rgb(195, 189, 99);
 }
+.ingredient-container.warning:hover {
+  background: rgb(170, 158, 56);
+}
 
 .ingredient-container.strongwarning {
   background: rgb(195, 99, 99);
+}
+.ingredient-container.strongwarning:hover {
+  background: rgb(170, 68, 56);
 }
 
 .icon-button {
   flex: 0 0 40px;
   font-size: xx-large;
+  text-align: center;
+  padding: 3px;
 }
 
 .icon-button:hover {

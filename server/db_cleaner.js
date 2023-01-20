@@ -13,7 +13,7 @@ function cleanDatabase() {
   //removeRedundantRowsFromDatabase();
 }
 
-//remove entries that match the table name.
+//remove rows that match the table name.
 function removeRedundantRowsFromDatabase() {
   tableNames.forEach((entry) => {
     let tableName = entry.name;

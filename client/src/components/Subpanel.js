@@ -3,7 +3,7 @@ import Ingredient from "./Ingredient";
 
 export default function Subpanel(props) {
   const HEADER_TEXTS = {
-    requests: "Requested Ingredients:",
+    requests: "Requested Flavors:",
     results: `Shared Pairings (${props.ingredientList.length}):`,
   };
 
