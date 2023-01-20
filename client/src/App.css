@@ -53,7 +53,6 @@ body {
 }
 
 #inputfield:focus {
-  z-index: 2000;
   border-color: rgb(7 50 125);
   outline-style: solid;
   outline-width: 2px;
@@ -161,4 +160,26 @@ body {
 
 .add-button {
   color: rgb(9, 97, 72);
+}
+
+/* TOOLTIPS */
+
+.tooltip {
+  visibility: hidden;
+  position: fixed;
+
+  background-color: black;
+  color: rgb(173, 173, 173);
+  text-align: left;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  font-size: small;
+  font-style: italic;
+
+  white-space: pre-line;
+}
+
+.hastooltip:hover .tooltip {
+  visibility: visible;
 }

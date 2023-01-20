@@ -19,12 +19,53 @@ export default function Ingredient(props) {
     );
   }
 
+  //render tooltips if requested ingredient has warnings:
+  let tooltip;
+  if (props.type === "requests") {
+    if (hasAnyWarnings()) {
+      tooltip = <span className="tooltip">{getWarningText()}</span>;
+    }
+  }
+
+  function getWarningText() {
+    let warningText = "";
+
+    if (props.warnings.length > 0) {
+      props.warnings.forEach((warning) => {
+        warningText += `-Might not pair well with ${warning}.\n`;
+      });
+    }
+
+    if (props.strongWarnings.length > 0) {
+      props.strongWarnings.forEach((strongWarning) => {
+        warningText += `-Strongly recommended not to pair with ${strongWarning}.\n`;
+      });
+    }
+
+    return warningText;
+  }
+
+  //position tooltips relative to the mouse TODO: did it work?
+  var tooltips = document.querySelectorAll(".tooltip");
+  window.onmousemove = function (e) {
+    let x = e.clientX + 10 + "px";
+    let y = e.clientY - 40 + "px";
+    for (var i = 0; i < tooltips.length; i++) {
+      tooltips[i].style.top = y;
+      tooltips[i].style.left = x;
+    }
+  };
+
   function handleRequestButton() {
     props.removeRequestedIngredient(props.value);
   }
 
   function handleAddButton() {
     props.addRequestedIngredient(props.value);
+  }
+
+  function hasAnyWarnings() {
+    return props.warnings.length > 0 || props.strongWarnings.length > 0;
   }
 
   function getClassName() {
@@ -41,6 +82,11 @@ export default function Ingredient(props) {
       } else if (props.affinity >= 3) {
         //bold all caps
         className += " bold caps";
+      }
+    } else if (props.type === "requests") {
+      //className for tootips
+      if (hasAnyWarnings()) {
+        className += " hastooltip";
       }
     }
 
@@ -74,7 +120,10 @@ export default function Ingredient(props) {
 
   return (
     <div className={getContainerClassName()}>
-      <div className={getClassName()}>{getValue()}</div>
+      <div className={getClassName()}>
+        {getValue()}
+        {tooltip}
+      </div>
       {iconButton}
     </div>
   );

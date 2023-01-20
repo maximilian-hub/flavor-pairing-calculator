@@ -175,6 +175,7 @@ function isCommon(currentPairing, allPairings) {
 function getMismatchedIngredients(ingredients) {
   let mismatchedIngredients = [];
 
+  //for each combination of ingredients,
   for (let i = 0; i < ingredients.length - 1; i++) {
     for (let j = i + 1; j < ingredients.length; j++) {
       if (isLegitPairing(ingredients[i], ingredients[j])) {
@@ -229,7 +230,10 @@ function isLegitPairing(ingredient_A, ingredient_B) {
 
   //check if those pairings contain ingredient_B
   for (let i = 0; i < pairingsOfIngredient_A.length; i++) {
-    if (pairingsOfIngredient_A[i].pairing === ingredient_B) {
+    if (
+      pairingsOfIngredient_A[i].pairing === ingredient_B &&
+      pairingsOfIngredient_A.affinity !== 0
+    ) {
       isLegit = true;
       break;
     }
@@ -256,6 +260,10 @@ function isForbiddenPairing(ingredient_A, ingredient_B) {
   /*
     Returns true if either ingredient lists the other 
     as a bad pairing.
+
+    TODO: this will no longer be necessary one the 
+    database has been expanded to convert one-way
+    pairings into two-way pairings.
   */
   if (A_forbids_B(ingredient_A, ingredient_B)) return true;
   if (A_forbids_B(ingredient_B, ingredient_A)) return true;
