@@ -109,7 +109,7 @@ export default function Ingredient(props) {
   function getValue() {
     let value = props.value;
 
-    value = value.replace("_", " ");
+    value = value.replaceAll("_", " ");
 
     if (props.affinity === 4) {
       value = "*" + value;
