@@ -15,6 +15,7 @@ export default function InputField(props) {
         type="text"
         placeholder="Type a flavor here & hit 'Enter!'"
         onKeyDown={handleKeyDown}
+        autoComplete="off"
       ></input>
     </div>
   );
