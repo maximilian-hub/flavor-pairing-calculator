@@ -67,6 +67,7 @@ function App() {
   }, [requestedIngredients]);
 
   function addRequestedIngredient(ingredient) {
+    ingredient = ingredient.replace(" ", "_");
     if (
       ALL_INGREDIENT_NAMES.includes(ingredient) && //if the ingredient is valid
       !requestedIngredients.includes(ingredient) //if it's not a repeat TODO: fix this so repeats don't show "we don't have this" message

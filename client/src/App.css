@@ -46,17 +46,20 @@ body {
   width: 66%;
   flex: 1;
   margin-left: 35px;
-  padding-left: 20px;
+  text-align: center;
   font-size: xx-large;
+  border-style: solid;
   border-color: black;
   border-radius: 20px;
 }
 
 #inputfield:focus {
-  border-color: rgb(7 50 125);
-  outline-style: solid;
-  outline-width: 2px;
-  outline-color: rgb(84, 98, 203);
+  border-color: rgb(52, 175, 0);
+  border-width: 2px;
+}
+
+#inputfield:focus::placeholder {
+  color: transparent;
 }
 
 .random-button {

@@ -13,7 +13,7 @@ export default function InputField(props) {
       <input
         id="inputfield"
         type="text"
-        placeholder="Type a flavor here & hit 'Enter!'"
+        placeholder="Type a flavor & hit 'Enter!'"
         onKeyDown={handleKeyDown}
         autoComplete="off"
       ></input>
