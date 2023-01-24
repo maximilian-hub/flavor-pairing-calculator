@@ -17,6 +17,11 @@ export default function InputField(props) {
         onKeyDown={handleKeyDown}
         autoComplete="off"
       ></input>
+      <i
+        className="fa-solid fa-dice icon-button random-button"
+        onClick={props.handleRandomButton}
+        title="add random flavor"
+      ></i>
     </div>
   );
 }

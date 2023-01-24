@@ -79,6 +79,11 @@ function App() {
     }
   }
 
+  function handleRandomButton() {
+    const randomIndex = Math.floor(Math.random() * ALL_INGREDIENT_NAMES.length);
+    addRequestedIngredient(ALL_INGREDIENT_NAMES[randomIndex]);
+  }
+
   function removeRequestedIngredient(name) {
     const updatedList = requestedIngredients.filter(
       (ingredient) => ingredient !== name
@@ -139,7 +144,10 @@ function App() {
   return (
     <>
       <Header />
-      <InputField addRequestedIngredient={addRequestedIngredient} />
+      <InputField
+        addRequestedIngredient={addRequestedIngredient}
+        handleRandomButton={handleRandomButton}
+      />
       <BodyPanel>
         <Subpanel
           type="requests"

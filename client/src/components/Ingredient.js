@@ -7,7 +7,8 @@ export default function Ingredient(props) {
     iconButton = (
       <i
         className="fa-regular fa-trash-can icon-button delete-button"
-        onClick={handleRequestButton}
+        onClick={handleDeleteButton}
+        title="remove flavor"
       ></i>
     );
   } else if (props.type === "results") {
@@ -15,6 +16,7 @@ export default function Ingredient(props) {
       <i
         className="fa-solid fa-arrow-rotate-left icon-button add-button"
         onClick={handleAddButton}
+        title="add flavor to search"
       ></i>
     );
   }
@@ -45,7 +47,7 @@ export default function Ingredient(props) {
     return warningText;
   }
 
-  function handleRequestButton() {
+  function handleDeleteButton() {
     props.removeRequestedIngredient(props.value);
   }
 

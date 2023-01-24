@@ -12,9 +12,9 @@ const CLEANING_LOG_PATH = "./logs/cleaning_log.txt";
 cleanDatabase();
 
 function cleanDatabase() {
-  //removeRedundantRowsFromDatabase();
+  removeRedundantRowsFromDatabase();
   //removeInvalidCharactersFromPairings();
-  expandTwoWayPairings();
+  //expandTwoWayPairings();
 }
 
 function expandTwoWayPairings() {
