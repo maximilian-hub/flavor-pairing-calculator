@@ -55,7 +55,9 @@ body {
 
 #inputfield:focus {
   border-color: rgb(52, 175, 0);
-  border-width: 2px;
+  outline-style: solid;
+  outline-width: 2px;
+  outline-color: rgb(52, 175, 0);
 }
 
 #inputfield:focus::placeholder {
