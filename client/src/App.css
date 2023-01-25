@@ -1,3 +1,10 @@
+:root {
+  --header-height: 80px;
+  --inputfield-container-height: 50px;
+  --inputfield-container-margin: 20px;
+  --inputfield-border-width: 2px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -31,14 +38,43 @@ body {
   margin: auto;
 }
 
+/*HEADER*/
+
+#header-container {
+  background-color: rgb(1, 4, 17);
+  color: white;
+  flex: 0 0 var(--header-height);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+#header-main {
+  padding-left: 15px;
+  flex: 5;
+  text-align: left;
+}
+
+#header-about {
+  flex: 1;
+  text-align: center;
+}
+
+#header-funstuff {
+  flex: 1;
+  padding-right: 15px;
+  text-align: center;
+}
+
 /*INPUT FIELD*/
 
 #inputfield-container {
   text-align: center;
   display: flex;
   flex-direction: row;
-  height: 50px;
-  margin: 20px;
+  height: var(--inputfield-container-height);
+  margin: var(--inputfield-container-margin);
   padding: 3px;
 }
 
@@ -50,10 +86,11 @@ body {
   font-size: xx-large;
   border-style: solid;
   border-color: black;
+  border-width: var(--inputfield-border-width);
   border-radius: 20px;
 }
 
-#inputfield:focus {
+#inputfield-container :focus {
   border-color: rgb(52, 175, 0);
   outline-style: solid;
   outline-width: 2px;
@@ -64,9 +101,50 @@ body {
   color: transparent;
 }
 
+/* #inputfield:focus ~ .autocomplete-panel {
+  visibility: visible;
+} */
+
 .random-button {
   margin: auto;
-  min-width: 35px; /* flex-bases didn't work as expected. TODO: find out why */
+  min-width: 35px; /* flex-basis didn't work as expected. TODO: find out why */
+}
+
+.autocomplete-panel {
+  position: absolute;
+  top: calc(
+    2px + var(--header-height) + var(--inputfield-container-height) +
+      var(--inputfield-container-margin) + var(--inputfield-border-width) * 2
+  );
+  left: 25%;
+  width: 50%;
+  /* min-width: 234px; */ /* this causes centering issues. TODO: implement this w/o issues */
+
+  max-height: 200px;
+  z-index: 999;
+
+  /* visibility: hidden; */
+  background-color: white;
+
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 0 0 20px 20px;
+}
+
+.autocomplete-suggestion {
+  border-bottom: 1px solid;
+  border-color: lightgray;
+  cursor: pointer;
+}
+
+.autocomplete-suggestion:hover {
+  background-color: paleturquoise;
+}
+
+.autocomplete-suggestion-searchvalue {
+  color: rgb(52, 175, 0);
+  font-weight: bold;
 }
 
 /*BODY PANEL*/

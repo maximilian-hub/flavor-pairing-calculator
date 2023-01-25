@@ -5,25 +5,6 @@ import InputField from "./components/InputField.js";
 import BodyPanel from "./components/BodyPanel.js";
 import Subpanel from "./components/Subpanel.js";
 
-async function getAllIngredientNames() {
-  //returns an array of all ingredient names
-  let allIngredientNames = [];
-
-  //send server request
-  let response = await fetch("/api", {
-    method: "GET",
-  });
-
-  //parse server response
-  const serverData = await response.json();
-  const tableObjects = serverData.body;
-  for (let i = 0; i < tableObjects.length; i++) {
-    allIngredientNames.push(tableObjects[i].name);
-  }
-
-  return allIngredientNames;
-}
-
 let ALL_INGREDIENT_NAMES = [];
 getAllIngredientNames().then((response) => {
   ALL_INGREDIENT_NAMES = response;
@@ -44,7 +25,6 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       //ask the server for a list of common pairings of requestedIngredients:
-      console.log("fetching data...");
       const response = await fetch("/api", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -52,7 +32,6 @@ function App() {
       });
 
       const data = await response.json();
-      console.log(data);
       setResultIngredients(data.body);
       setMismatchedIngredients(data.mismatchedIngredients);
       setForbiddenIngredients(data.forbiddenIngredients);
@@ -67,7 +46,7 @@ function App() {
   }, [requestedIngredients]);
 
   function addRequestedIngredient(ingredient) {
-    ingredient = ingredient.replace(" ", "_");
+    ingredient = ingredient.replaceAll(" ", "_");
     if (
       ALL_INGREDIENT_NAMES.includes(ingredient) && //if the ingredient is valid
       !requestedIngredients.includes(ingredient) //if it's not a repeat TODO: fix this so repeats don't show "we don't have this" message
@@ -78,11 +57,6 @@ function App() {
         `"${ingredient}" is not the name of an ingredient in our database.`
       );
     }
-  }
-
-  function handleRandomButton() {
-    const randomIndex = Math.floor(Math.random() * ALL_INGREDIENT_NAMES.length);
-    addRequestedIngredient(ALL_INGREDIENT_NAMES[randomIndex]);
   }
 
   function removeRequestedIngredient(name) {
@@ -113,7 +87,7 @@ function App() {
         warnings.push(theOtherOne(ingredient, mismatchedIngredients[i]));
       }
     }
-    console.log(`warnings for ${ingredient}:\n${warnings}`);
+
     return warnings;
   }
 
@@ -141,6 +115,11 @@ function App() {
     return strongWarnings;
   }
 
+  function handleRandomButton() {
+    const randomIndex = Math.floor(Math.random() * ALL_INGREDIENT_NAMES.length);
+    addRequestedIngredient(ALL_INGREDIENT_NAMES[randomIndex]);
+  }
+
   //component tree:
   return (
     <>
@@ -148,6 +127,7 @@ function App() {
       <InputField
         addRequestedIngredient={addRequestedIngredient}
         handleRandomButton={handleRandomButton}
+        getAutocompleteSuggestions={getAutocompleteSuggestions}
       />
       <BodyPanel>
         <Subpanel
@@ -186,13 +166,53 @@ function theOtherOne(ingredient, mismatchedPair) {
   return theOtherOne;
 }
 
-//position tooltips relative to the mouse TODO: did it work?
-var tooltips = document.querySelectorAll(".tooltip");
-window.onmousemove = function (e) {
-  let x = e.clientX + 10 + "px";
-  let y = e.clientY - 20 + "px";
-  for (var i = 0; i < tooltips.length; i++) {
-    tooltips[i].style.top = y;
-    tooltips[i].style.left = x;
+async function getAllIngredientNames() {
+  //returns an array of all ingredient names
+  let allIngredientNames = [];
+
+  //send server request
+  let response = await fetch("/api", {
+    method: "GET",
+  });
+
+  //parse server response
+  const serverData = await response.json();
+  const tableObjects = serverData.body;
+  for (let i = 0; i < tableObjects.length; i++) {
+    allIngredientNames.push(tableObjects[i].name);
   }
-};
+
+  return allIngredientNames;
+}
+
+function getAutocompleteSuggestions(searchValue) {
+  /*
+      For autocomplete.
+
+      Returns an array of ingredientName
+      strings matching the searchValue.
+      (or a "nothing found" message)
+
+      Matches can be in the middle of the
+      string, but matches at the beginning
+      of the string are prioritized.
+    */
+  searchValue = searchValue.replaceAll(" ", "_");
+  let priorityResults = [];
+  let mainResults = [];
+
+  ALL_INGREDIENT_NAMES.forEach((ingredientName) => {
+    if (ingredientName.includes(searchValue)) {
+      if (ingredientName.indexOf(searchValue) === 0) {
+        priorityResults.push(ingredientName);
+      } else {
+        mainResults.push(ingredientName);
+      }
+    }
+  });
+
+  let results = priorityResults.concat(mainResults);
+  if (results.length === 0) results = ["No flavors found."];
+
+  return results;
+}
