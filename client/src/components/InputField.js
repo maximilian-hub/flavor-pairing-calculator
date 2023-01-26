@@ -8,6 +8,7 @@ export default function InputField(props) {
     if (e.keyCode === 13) {
       props.addRequestedIngredient(e.target.value);
       e.target.value = "";
+      setAutoComplete([]);
     }
   }
 

@@ -47,15 +47,24 @@ function App() {
 
   function addRequestedIngredient(ingredient) {
     ingredient = ingredient.replaceAll(" ", "_");
+
+    if (!ALL_INGREDIENT_NAMES.includes(ingredient)) {
+      //if it's not a valid ingredient
+      alert(
+        `"${ingredient}" is not the name of an ingredient in our database.`
+      );
+    } else if (requestedIngredients.includes(ingredient)) {
+      //if it's already been requested
+      // do nothing
+    } else {
+      setRequestedIngredients([...requestedIngredients, ingredient]);
+    }
+
     if (
       ALL_INGREDIENT_NAMES.includes(ingredient) && //if the ingredient is valid
       !requestedIngredients.includes(ingredient) //if it's not a repeat TODO: fix this so repeats don't show "we don't have this" message
     ) {
-      setRequestedIngredients([...requestedIngredients, ingredient]);
     } else {
-      alert(
-        `"${ingredient}" is not the name of an ingredient in our database.`
-      );
     }
   }
 

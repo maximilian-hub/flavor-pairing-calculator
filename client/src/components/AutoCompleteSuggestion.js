@@ -11,13 +11,25 @@ export default function AutoCompleteSuggestion(props) {
     );
   }
 
-  function handleOnClick(e) {
+  function submit() {
     props.addRequestedIngredient(props.suggestion);
     props.clearInput();
+    document.getElementById("inputfield").focus();
+  }
+
+  function handleKeyDown(e) {
+    if (e.keyCode === 13) {
+      submit();
+    }
   }
 
   return (
-    <div className="autocomplete-suggestion" onClick={handleOnClick}>
+    <div
+      className="autocomplete-suggestion"
+      onClick={submit}
+      onKeyDown={handleKeyDown}
+      tabIndex="0"
+    >
       {highlightedSuggestion}
     </div>
   );

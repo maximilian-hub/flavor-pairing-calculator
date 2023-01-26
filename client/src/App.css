@@ -90,20 +90,20 @@ body {
   border-radius: 20px;
 }
 
-#inputfield-container :focus {
+#inputfield-container:focus-within #inputfield {
   border-color: rgb(52, 175, 0);
   outline-style: solid;
   outline-width: 2px;
   outline-color: rgb(52, 175, 0);
 }
 
+#inputfield-container:focus-within .autocomplete-panel {
+  visibility: visible;
+}
+
 #inputfield:focus::placeholder {
   color: transparent;
 }
-
-/* #inputfield:focus ~ .autocomplete-panel {
-  visibility: visible;
-} */
 
 .random-button {
   margin: auto;
@@ -123,7 +123,7 @@ body {
   max-height: 200px;
   z-index: 999;
 
-  /* visibility: hidden; */
+  visibility: hidden;
   background-color: white;
 
   border-style: solid;
@@ -138,8 +138,10 @@ body {
   cursor: pointer;
 }
 
-.autocomplete-suggestion:hover {
+.autocomplete-suggestion:hover,
+.autocomplete-suggestion:focus {
   background-color: paleturquoise;
+  outline-style: none;
 }
 
 .autocomplete-suggestion-searchvalue {
