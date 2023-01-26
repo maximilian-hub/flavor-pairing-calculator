@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import AutoCompletePanel from "./AutoCompletePanel.js";
 
 export default function InputField(props) {
   const [autoComplete, setAutoComplete] = useState([]);
+  const inputRef = useRef();
 
   function handleKeyDown(e) {
+    console.log(e.keyCode);
+
     if (e.keyCode === 13) {
+      //enter
       props.addRequestedIngredient(e.target.value);
       e.target.value = "";
       setAutoComplete([]);
+    } else if (e.keyCode === 40) {
+      //down arrowkey
+      e.preventDefault();
+      document.querySelector(".autocomplete-suggestion").focus(); //focus first suggestion
     }
   }
 
@@ -27,6 +35,7 @@ export default function InputField(props) {
             e.target.value = "";
             setAutoComplete([]);
           }}
+          inputRef={inputRef}
         />
       );
     }
@@ -37,17 +46,18 @@ export default function InputField(props) {
       <input
         id="inputfield"
         type="text"
+        ref={inputRef}
         placeholder="Type a flavor & hit 'Enter!'"
         onKeyDown={handleKeyDown}
         onChange={runAutoComplete}
         autoComplete="off"
       ></input>
+      {autoComplete}
       <i
         className="fa-solid fa-dice icon-button random-button"
         onClick={props.handleRandomButton}
         title="add random flavor"
       ></i>
-      {autoComplete}
     </div>
   );
 }

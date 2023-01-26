@@ -14,12 +14,30 @@ export default function AutoCompleteSuggestion(props) {
   function submit() {
     props.addRequestedIngredient(props.suggestion);
     props.clearInput();
-    document.getElementById("inputfield").focus();
+    document.getElementById("inputfield").focus(); //TODO: why does this work here, but not from the handleKeyDown()??
   }
 
   function handleKeyDown(e) {
     if (e.keyCode === 13) {
+      //enter
       submit();
+    } else if (e.keyCode === 40) {
+      //down arrowkey
+      e.preventDefault();
+      document.activeElement.nextElementSibling.focus();
+    } else if (e.keyCode === 38) {
+      //up arrowkey
+
+      if (props.suggestionID === 0) {
+        //if the top suggestion is currently focused
+        document.getElementById("inputfield").focus();
+        setTimeout(() => {
+          document.getElementById("inputfield").setSelectionRange(100, 100);
+        }, 1);
+      } else {
+        e.preventDefault();
+        document.activeElement.previousElementSibling.focus();
+      }
     }
   }
 

@@ -11,6 +11,7 @@ export default function AutoCompletePanel(props) {
       suggestionElements.push(
         <AutoCompleteSuggestion
           key={i}
+          suggestionID={i}
           searchValue={props.searchValue}
           suggestion={suggestion}
           addRequestedIngredient={props.addRequestedIngredient}
