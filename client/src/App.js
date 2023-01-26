@@ -59,13 +59,6 @@ function App() {
     } else {
       setRequestedIngredients([...requestedIngredients, ingredient]);
     }
-
-    if (
-      ALL_INGREDIENT_NAMES.includes(ingredient) && //if the ingredient is valid
-      !requestedIngredients.includes(ingredient) //if it's not a repeat TODO: fix this so repeats don't show "we don't have this" message
-    ) {
-    } else {
-    }
   }
 
   function removeRequestedIngredient(name) {

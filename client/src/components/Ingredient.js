@@ -44,7 +44,7 @@ export default function Ingredient(props) {
       });
     }
 
-    return warningText;
+    return warningText.replaceAll("_", " ");
   }
 
   function handleDeleteButton() {
@@ -109,9 +109,19 @@ export default function Ingredient(props) {
     return value;
   }
 
+  function positionTooltips(e) {
+    let tooltips = document.querySelectorAll(".tooltip");
+    let x = e.clientX + 15 + "px";
+    let y = e.clientY - 20 + "px";
+    for (var i = 0; i < tooltips.length; i++) {
+      tooltips[i].style.top = y;
+      tooltips[i].style.left = x;
+    }
+  }
+
   return (
     <div className={getContainerClassName()}>
-      <div className={getClassName()}>
+      <div className={getClassName()} onMouseMove={positionTooltips}>
         {getValue()}
         {tooltip}
       </div>
