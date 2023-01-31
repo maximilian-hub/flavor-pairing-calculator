@@ -1,7 +1,7 @@
 :root {
   --header-height: 80px;
   --inputfield-container-height: 50px;
-  --inputfield-container-margin: 20px;
+  --inputfield-container-vertical-margin: 20px;
   --inputfield-border-width: 2px;
 }
 
@@ -74,16 +74,22 @@ body {
   display: flex;
   flex-direction: row;
   height: var(--inputfield-container-height);
-  margin: var(--inputfield-container-margin);
+  margin-top: var(--inputfield-container-vertical-margin);
+  margin-bottom: var(--inputfield-container-vertical-margin);
   padding: 3px;
 }
 
-#inputfield {
-  width: 66%;
+#inputfield-spacer {
   flex: 1;
-  margin-left: 35px;
+}
+
+#inputfield {
+  flex: 2;
+  min-width: min-content;
+  max-width: none;
   text-align: center;
   font-size: xx-large;
+  padding-left: 3px;
   border-style: solid;
   border-color: black;
   border-width: var(--inputfield-border-width);
@@ -106,15 +112,25 @@ body {
 }
 
 .random-button {
+  flex: 1;
+  font-size: xx-large;
+  text-align: left;
+  padding-left: 10px;
   margin: auto;
-  min-width: 35px; /* flex-basis didn't work as expected. TODO: find out why */
+  cursor: pointer;
+  transition: 350ms;
+}
+
+.random-button:hover {
+  color: white;
 }
 
 .autocomplete-panel {
   position: absolute;
   top: calc(
     2px + var(--header-height) + var(--inputfield-container-height) +
-      var(--inputfield-container-margin) + var(--inputfield-border-width) * 2
+      var(--inputfield-container-vertical-margin) +
+      var(--inputfield-border-width) * 2
   );
   left: 25%;
   width: 50%;

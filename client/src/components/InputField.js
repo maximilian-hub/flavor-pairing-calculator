@@ -43,6 +43,7 @@ export default function InputField(props) {
 
   return (
     <div id="inputfield-container">
+      <div id="inputfield-spacer" />
       <input
         id="inputfield"
         type="text"
@@ -54,7 +55,7 @@ export default function InputField(props) {
       ></input>
       {autoComplete}
       <i
-        className="fa-solid fa-dice icon-button random-button"
+        className="fa-solid fa-dice random-button"
         onClick={props.handleRandomButton}
         title="add random flavor"
       ></i>
