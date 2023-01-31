@@ -1,5 +1,5 @@
 :root {
-  --header-height: 80px;
+  --header-height: 40px;
   --inputfield-container-height: 50px;
   --inputfield-container-vertical-margin: 20px;
   --inputfield-border-width: 2px;
@@ -52,19 +52,28 @@ body {
 
 #header-main {
   padding-left: 15px;
-  flex: 5;
+  flex: 1;
   text-align: left;
+  font-size: x-large;
 }
 
-#header-about {
+#header-links-container {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.header-link {
   flex: 1;
   text-align: center;
 }
 
-#header-funstuff {
-  flex: 1;
-  padding-right: 15px;
-  text-align: center;
+.active {
+  color: cornflowerblue;
 }
 
 /*INPUT FIELD*/
@@ -128,12 +137,12 @@ body {
 .autocomplete-panel {
   position: absolute;
   top: calc(
-    2px + var(--header-height) + var(--inputfield-container-height) +
+    1px + var(--header-height) + var(--inputfield-container-height) +
       var(--inputfield-container-vertical-margin) +
       var(--inputfield-border-width) * 2
   );
-  left: 25%;
-  width: 50%;
+  left: calc(calc(100% - 260px) / 2);
+  width: 260px;
   /* min-width: 234px; */ /* this causes centering issues. TODO: implement this w/o issues */
 
   max-height: 200px;
@@ -212,17 +221,20 @@ body {
 /* INGREDIENTS */
 .ingredient-container {
   display: flex;
+  transition: all 0.5s;
 }
 
 .ingredient-container:hover {
   background: rgb(99, 133, 195);
+  transition: all 0s;
 }
 
 .ingredient {
   flex: 1;
   color: rgb(3, 47, 128);
-  font-size: xx-large;
+  font-size: x-large;
   text-align: center;
+  padding: auto;
   cursor: default;
 }
 
@@ -244,13 +256,14 @@ body {
 .ingredient-container.strongwarning {
   background: rgb(195, 99, 99);
 }
+
 .ingredient-container.strongwarning:hover {
   background: rgb(170, 68, 56);
 }
 
 .icon-button {
   flex: 0 0 40px;
-  font-size: xx-large;
+  font-size: x-large;
   text-align: center;
   padding: 3px;
 }

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import Header from "./components/Header.js";
 import InputField from "./components/InputField.js";
 import BodyPanel from "./components/BodyPanel.js";
 import Subpanel from "./components/Subpanel.js";
@@ -125,7 +124,6 @@ function App() {
   //component tree:
   return (
     <>
-      <Header />
       <InputField
         addRequestedIngredient={addRequestedIngredient}
         handleRandomButton={handleRandomButton}
