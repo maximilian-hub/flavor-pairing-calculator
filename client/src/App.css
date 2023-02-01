@@ -72,10 +72,14 @@ body {
   text-align: center;
 }
 
-.active {
-  color: cornflowerblue;
+.link-active {
+  color: white;
 }
 
+.link-inactive {
+  color: rgb(222, 221, 221);
+  text-decoration: none;
+}
 /*INPUT FIELD*/
 
 #inputfield-container {
