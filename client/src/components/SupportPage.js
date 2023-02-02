@@ -1,6 +1,7 @@
 import React from "react";
-import PageSection from "./PageSection.js";
+import InfoSection from "./InfoSection.js";
+import InfoPage from "./InfoPage.js";
 
 export default function SupportPage() {
-  return <h1 className="info-page">SUPPORT</h1>;
+  return <InfoPage className="info-page">SUPPORT</InfoPage>;
 }

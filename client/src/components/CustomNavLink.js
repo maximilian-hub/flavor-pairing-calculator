@@ -6,10 +6,8 @@ export default function CustomNavLink(props) {
     <NavLink
       to={props.to}
       className={(navData) =>
-        navData.isActive ? "link-active" : "link-inactive"
+        navData.isActive ? "navlink navlink-active" : "navlink navlink-inactive"
       }
-      //style={{ color: "inherit", textDecoration: "none" }}
-      //activeStyle={{ color: "cornflowerblue" }}
     >
       {props.name}
     </NavLink>

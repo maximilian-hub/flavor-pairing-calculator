@@ -1,6 +1,7 @@
 import React from "react";
-import PageSection from "./PageSection.js";
+import InfoSection from "./InfoSection.js";
+import InfoPage from "./InfoPage.js";
 
 export default function ContactPage() {
-  return <h1 className="info-page">CONTACT</h1>;
+  return <InfoPage className="info-page">CONTACT</InfoPage>;
 }

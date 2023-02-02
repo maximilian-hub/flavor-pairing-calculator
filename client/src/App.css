@@ -3,6 +3,9 @@
   --inputfield-container-height: 50px;
   --inputfield-container-vertical-margin: 20px;
   --inputfield-border-width: 2px;
+  --dark-blue: rgb(13, 0, 52);
+  --light-blue: rgb(124, 164, 238);
+  --info-section-header-height: 60px;
 }
 
 * {
@@ -32,9 +35,13 @@ body {
   flex-flow: column;
 }
 
+li {
+  padding-left: 10px;
+}
+
 #arrow-icon {
   color: rgb(109, 170, 250);
-  font-size: 3em;
+  font-size: 2em;
   margin: auto;
 }
 
@@ -72,14 +79,89 @@ body {
   text-align: center;
 }
 
-.link-active {
-  color: white;
+.navlink {
+  transition: 200ms;
 }
 
-.link-inactive {
-  color: rgb(222, 221, 221);
+.navlink:hover {
+  color: white;
+  transition: 0s;
+}
+
+.navlink-inactive {
+  color: rgb(186, 185, 185);
   text-decoration: none;
 }
+
+.navlink-active {
+  color: white;
+  text-decoration: underline;
+}
+
+/* INFO PAGES */
+.info-page-container {
+  height: 100%;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-page {
+  flex: 1;
+  background-color: var(--dark-blue);
+  border-radius: 20px;
+}
+
+.info-section {
+  background-color: var(--light-blue);
+  margin: 20px;
+  border-radius: 20px;
+}
+
+.info-section-header {
+  display: flex;
+  flex-direction: row;
+  height: var(--info-section-header-height);
+  cursor: pointer;
+  background-color: cornflowerblue;
+}
+
+.info-section-header-spacer {
+  flex: 1;
+  max-width: var(--info-section-height);
+}
+
+.info-section-header-text {
+  flex: 3;
+  text-align: center;
+  font-size: xx-large;
+  margin: auto;
+}
+
+.info-section-header-button {
+  flex: 1;
+  max-width: var(--info-section-height);
+  text-align: center;
+  font-size: x-large;
+  margin: auto;
+  transition: ease-out 300ms;
+}
+
+.info-section-header-button.active {
+  rotate: 180deg;
+}
+
+.info-section-body {
+  height: fit-content;
+  width: inherit;
+  background-color: var(--light-blue);
+  padding: 20px;
+}
+
+.info-section-body > ul {
+  list-style-type: disc;
+}
+
 /*INPUT FIELD*/
 
 #inputfield-container {
@@ -136,6 +218,7 @@ body {
 
 .random-button:hover {
   color: white;
+  transition: 0s;
 }
 
 .autocomplete-panel {
@@ -153,7 +236,7 @@ body {
   z-index: 999;
 
   visibility: hidden;
-  background-color: white;
+  background-color: rgba(256, 256, 256, 0.9);
 
   border-style: solid;
   border-width: 1px;
@@ -190,7 +273,7 @@ body {
   display: flex;
   flex: 1;
   position: relative;
-  background-color: rgb(13, 0, 52);
+  background-color: var(--dark-blue);
   border-radius: 20px;
 }
 
@@ -203,7 +286,7 @@ body {
 }
 
 .subpanel-component {
-  background: rgb(124, 164, 238);
+  background: var(--light-blue);
 }
 
 .subpanel-header {
@@ -225,12 +308,10 @@ body {
 /* INGREDIENTS */
 .ingredient-container {
   display: flex;
-  transition: all 0.5s;
 }
 
 .ingredient-container:hover {
   background: rgb(99, 133, 195);
-  transition: all 0s;
 }
 
 .ingredient {
