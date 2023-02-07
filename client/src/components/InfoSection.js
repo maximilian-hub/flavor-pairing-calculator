@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function InfoSection(props) {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(props.active);
 
   return (
     <>

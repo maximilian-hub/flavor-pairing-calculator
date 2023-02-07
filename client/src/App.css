@@ -365,6 +365,35 @@ li {
   color: rgb(9, 97, 72);
 }
 
+/* EMAIL FORM */
+.email-form-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.email-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.email-form > div {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+}
+
+.email-form > div > label {
+  text-align: right;
+  flex: 1;
+}
+
+.email-form > div > input {
+  flex: 1;
+}
+
 /* TOOLTIPS */
 
 .tooltip {
