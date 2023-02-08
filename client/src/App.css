@@ -66,7 +66,6 @@ li {
 }
 
 #header-links-container {
-  flex: 1;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -76,8 +75,11 @@ li {
 }
 
 .header-link {
-  flex: 1;
   text-align: center;
+  max-width: 100px;
+  margin: 2px;
+  padding: 3px;
+  text-decoration: underline;
 }
 
 .navlink {
@@ -97,6 +99,40 @@ li {
 .navlink-active {
   color: white;
   text-decoration: underline;
+}
+
+/* HAMBURGER MENU */
+#hamburger-icon {
+  cursor: pointer;
+  font-size: 1.5em;
+  transition: all 200ms ease-out;
+}
+
+#hamburger-icon:hover {
+  color: var(--fpc-green);
+}
+
+#hamburger-icon.active {
+  rotate: 90deg;
+}
+
+#hamburger-icon.active:hover {
+  color: red;
+}
+
+#hamburger-menu {
+  position: absolute;
+  top: var(--header-height);
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  background-color: black;
+  z-index: 99;
+  transition: all 200ms ease-out;
+}
+
+#hamburger-menu.inactive {
+  right: -100px;
 }
 
 /* INFO PAGES */
