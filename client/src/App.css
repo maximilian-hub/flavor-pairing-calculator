@@ -147,12 +147,18 @@ li {
   flex: 1;
   background-color: var(--dark-blue);
   border-radius: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .info-section {
   background-color: var(--light-blue);
-  margin: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 20px;
+  max-width: 500px;
 }
 
 .info-section-header {
