@@ -5,6 +5,7 @@
   --inputfield-border-width: 2px;
   --dark-blue: rgb(13, 0, 52);
   --light-blue: rgb(124, 164, 238);
+  --fpc-green: rgb(52, 175, 0);
   --info-section-header-height: 60px;
 }
 
@@ -158,8 +159,10 @@ li {
   padding: 20px;
 }
 
-.info-section-body > ul {
-  list-style-type: disc;
+.info-section-body > h1,
+.info-section-body > h2,
+.info-section-body > h3 {
+  text-align: center;
 }
 
 /*INPUT FIELD*/
@@ -192,10 +195,10 @@ li {
 }
 
 #inputfield-container:focus-within #inputfield {
-  border-color: rgb(52, 175, 0);
+  border-color: var(--fpc-green);
   outline-style: solid;
   outline-width: 2px;
-  outline-color: rgb(52, 175, 0);
+  outline-color: var(--fpc-green);
 }
 
 #inputfield-container:focus-within .autocomplete-panel {
@@ -257,7 +260,7 @@ li {
 }
 
 .autocomplete-suggestion-searchvalue {
-  color: rgb(52, 175, 0);
+  color: var(--fpc-green);
   font-weight: bold;
 }
 
@@ -378,20 +381,64 @@ li {
   flex-direction: column;
 }
 
+.email-form > input {
+  height: 40px;
+  width: 120px;
+  margin: auto;
+  margin-top: 10px;
+  border-radius: 5px;
+  border-color: rgb(67, 113, 199);
+  border-style: solid;
+  background-color: rgb(142, 176, 239);
+  color: var(--dark-blue);
+  cursor: pointer;
+}
+
+.email-form > input:hover {
+  background-color: rgb(174, 194, 232);
+  border-color: var(--fpc-green);
+}
+
 .email-form > div {
-  flex: 1;
+  margin: 5px;
   display: flex;
   flex-direction: row;
-  /* justify-content: center; */
 }
 
 .email-form > div > label {
   text-align: right;
-  flex: 1;
 }
 
-.email-form > div > input {
+.email-form > div > * {
   flex: 1;
+  padding-left: 5px;
+  padding-right: 5px;
+  outline-style: none;
+  margin: 3px;
+}
+
+.email-form > div > *:focus {
+  outline-style: solid;
+  outline-color: var(--fpc-green);
+  outline-width: 3px;
+}
+
+#user-message {
+  min-height: 100px;
+  height: 200px;
+  outline-style: none;
+  margin: 3px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#user-message:focus {
+  outline-style: solid;
+  outline-color: var(--fpc-green);
+  outline-width: 3px;
 }
 
 /* TOOLTIPS */

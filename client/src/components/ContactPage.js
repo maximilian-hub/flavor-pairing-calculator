@@ -6,6 +6,7 @@ export default function ContactPage() {
   return (
     <InfoPage className="info-page">
       <InfoSection header="Contact" active="true">
+        <h3>Email me:</h3>
         <div className="email-form-container">
           <form className="email-form" action="">
             <div>
@@ -28,10 +29,10 @@ export default function ContactPage() {
 
             <div>
               <label htmlFor="message">your message:</label>
-              <input type="text" name="message" />
+              <textarea type="text" id="user-message" name="message" />
             </div>
 
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Submit" rows="10" />
           </form>
         </div>
       </InfoSection>
