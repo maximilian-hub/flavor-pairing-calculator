@@ -207,6 +207,55 @@ li {
   text-align: center;
 }
 
+/* CONTAGE PAGE */
+
+#contact-links {
+  text-align: center;
+}
+
+#contact-links > * {
+  margin: 20px;
+  font-size: 4em;
+}
+
+.linkedin,
+.github,
+.twitter {
+  position: relative;
+  z-index: 10;
+  transition: all 8s ease-out;
+  margin-top: 5px;
+}
+
+.linkedin:hover,
+.github:hover,
+.twitter:hover {
+  transition: all 2s ease-out;
+  rotate: 900deg;
+}
+
+.linkedin {
+  color: rgb(21, 105, 191);
+}
+
+.github {
+  color: rgb(0, 0, 0);
+}
+
+.twitter {
+  color: rgb(41, 157, 237);
+}
+
+.icon-bg {
+  position: absolute;
+  top: 5px;
+  left: 2px;
+  height: 50px;
+  width: 50px;
+  background-color: white;
+  z-index: -1;
+}
+
 /*INPUT FIELD*/
 
 #inputfield-container {
