@@ -19,6 +19,16 @@ function App() {
   const [resultIngredients, setResultIngredients] = useState([]);
   const [mismatchedIngredients, setMismatchedIngredients] = useState([]);
   const [forbiddenIngredients, setForbiddenIngredients] = useState([]);
+  const [width, setWidth] = useState(window.innerWidth);
+  const breakpoint = 600;
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   //send POST request whenever requestedIngredients is updated:
   useEffect(() => {
@@ -129,17 +139,24 @@ function App() {
         handleRandomButton={handleRandomButton}
         getAutocompleteSuggestions={getAutocompleteSuggestions}
       />
-      <BodyPanel>
+      <BodyPanel mobile={width < breakpoint}>
         <Subpanel
           type="requests"
+          mobile={width < breakpoint}
           removeRequestedIngredient={removeRequestedIngredient}
           ingredientList={requestedIngredients}
           getWarnings={getWarnings}
           getStrongWarnings={getStrongWarnings}
         ></Subpanel>
-        <i id="arrow-icon" className="fa-regular fa-circle-right"></i>
+        {width < breakpoint ? (
+          <></>
+        ) : (
+          <i id="arrow-icon" className="fa-regular fa-circle-right"></i>
+        )}
+
         <Subpanel
           type="results"
+          mobile={width < breakpoint}
           addRequestedIngredient={addRequestedIngredient}
           ingredientList={resultIngredients}
         ></Subpanel>

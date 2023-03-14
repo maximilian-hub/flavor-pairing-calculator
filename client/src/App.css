@@ -79,7 +79,7 @@ li {
   max-width: 100px;
   margin: 2px;
   padding: 3px;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .navlink {
@@ -158,7 +158,7 @@ li {
   margin-left: auto;
   margin-right: auto;
   border-radius: 20px;
-  max-width: 500px;
+  max-width: 570px;
 }
 
 .info-section-header {
@@ -203,7 +203,8 @@ li {
 
 .info-section-body > h1,
 .info-section-body > h2,
-.info-section-body > h3 {
+.info-section-body > h3,
+.info-section-body > form {
   text-align: center;
 }
 
@@ -371,6 +372,10 @@ li {
   border-radius: 20px;
 }
 
+#bodypanel.mobile {
+  flex-direction: column;
+}
+
 /* SUBPANELS */
 .subpanel {
   display: flex;
@@ -397,6 +402,11 @@ li {
 .subpanel-body {
   border-radius: 0px 0px 20px 20px;
   flex: 9;
+}
+
+.subpanel.mobile#resultsPanel {
+  flex: 2;
+  margin-top: 0px;
 }
 
 /* INGREDIENTS */

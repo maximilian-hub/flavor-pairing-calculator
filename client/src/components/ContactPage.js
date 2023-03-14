@@ -14,7 +14,7 @@ export default function ContactPage() {
       window.Email.send({
         Host: "smtp.elasticemail.com",
         Username: "flavorpairingcalculator@gmail.com",
-        Password: "6F010AAAD1FAE6E6765AF534F31AF46F9A1B",
+        Password: "6F010AAAD1FAE6E6765AF534F31AF46F9A1B", //TODO: encrypt this
         Port: 2525,
         To: "flavorpairingcalculator+" + formState.extension + "@gmail.com",
         From: "flavorpairingcalculator@gmail.com",
@@ -34,12 +34,12 @@ export default function ContactPage() {
     <InfoPage className="info-page">
       <InfoSection header="Contact" active="true">
         <div id="contact-links">
-          <a href="https://www.linkedin.com">
+          <a href="https://www.linkedin.com/in/maximilian-spedale/">
             <i className="fa-brands fa-linkedin linkedin" title="LinkedIn">
               <div className="icon-bg"></div>
             </i>
           </a>
-          <a href="https://www.github.com">
+          <a href="https://github.com/maximilian-hub">
             <i className="fa-brands fa-square-github github" title="GitHub">
               <div className="icon-bg"></div>
             </i>

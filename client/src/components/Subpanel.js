@@ -38,7 +38,10 @@ export default function Subpanel(props) {
   }
 
   return (
-    <div className="subpanel" id={props.type + "Panel"}>
+    <div
+      className={props.mobile ? "subpanel mobile" : "subpanel"}
+      id={props.type + "Panel"}
+    >
       <div
         className="subpanel-header subpanel-component"
         id={props.type + "Panel-header"}
