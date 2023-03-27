@@ -3,7 +3,7 @@ const db = require("better-sqlite3")("db.sqlite");
 const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
-const { transferableAbortController } = require("util");
+const path = require("path");
 
 //server initialization:
 const app = express(); //start application
@@ -12,6 +12,9 @@ app.listen(port, () =>
   //start listening for requests
   console.log("Listening at " + port + ".")
 );
+
+// Serve the static files from the React app
+app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
 app.post("/api", bodyParser.json(), handlePostRequest); //route POST requests
 app.get("/api", handleGetRequest);
