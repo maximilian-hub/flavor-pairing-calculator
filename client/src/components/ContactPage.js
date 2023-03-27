@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import InfoSection from "./InfoSection.js";
 import InfoPage from "./InfoPage.js";
-import { Link } from "react-router-dom";
 
 export default function ContactPage() {
   const [formState, setFormState] = useState({});

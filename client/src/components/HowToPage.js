@@ -1,5 +1,4 @@
 import React from "react";
-import InfoSection from "./InfoSection.js";
 import InfoPage from "./InfoPage.js";
 
 export default function ContactPage() {
