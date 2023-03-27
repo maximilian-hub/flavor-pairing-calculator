@@ -7,9 +7,10 @@ const { transferableAbortController } = require("util");
 
 //server initialization:
 const app = express(); //start application
-app.listen(5000, () =>
+const port = process.env.PORT || 5000;
+app.listen(port, () =>
   //start listening for requests
-  console.log("Listening at port 5000.")
+  console.log("Listening at " + port + ".")
 );
 
 app.post("/api", bodyParser.json(), handlePostRequest); //route POST requests
