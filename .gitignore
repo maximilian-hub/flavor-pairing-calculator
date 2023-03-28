@@ -1,4 +1,0 @@
-client/node_modules/.cache
-client/node_modules/.cache
-*.DS_Store
-server/db copy.sqlite
