@@ -34,11 +34,14 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       //ask the server for a list of common pairings of requestedIngredients:
-      const response = await fetch("/api", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ingredients: requestedIngredients }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ingredients: requestedIngredients }),
+        }
+      );
 
       const data = await response.json();
       setResultIngredients(data.body);
@@ -91,7 +94,7 @@ function App() {
     // as a parameter, this function should return:
     //   ["bacon","lime"]
 
-    let warnings = new Array();
+    let warnings = [];
 
     for (let i = 0; i < mismatchedIngredients.length; i++) {
       if (mismatchedIngredients[i].includes(ingredient)) {
@@ -115,7 +118,7 @@ function App() {
     // as a parameter, this function should return:
     //   ["bacon","lime"]
 
-    let strongWarnings = new Array();
+    let strongWarnings = [];
 
     for (let i = 0; i < forbiddenIngredients.length; i++) {
       if (forbiddenIngredients[i].includes(ingredient)) {
@@ -188,7 +191,7 @@ async function getAllIngredientNames() {
   let allIngredientNames = [];
 
   //send server request
-  let response = await fetch("/api", {
+  let response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api`, {
     method: "GET",
   });
 

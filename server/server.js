@@ -1,23 +1,41 @@
 //load packages
-const db = require("better-sqlite3")("db.sqlite");
+const path = require("path");
+const dbPath = path.join(__dirname, "db.sqlite");
+const db = require("better-sqlite3")(dbPath);
 const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
-const path = require("path");
+const cors = require("cors");
 
 //server initialization:
 const app = express(); //start application
-const port = process.env.PORT || 5000;
-app.listen(port, () =>
-  //start listening for requests
-  console.log("Listening at " + port + ".")
-);
+const port = 5000;
 
-// Serve the static files from the React app
+const corsOptions = {
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:5000",
+    "https://flavor-pairing-calculator.onrender.com",
+    "https://www.flavor-pairing-calculator.com",
+  ],
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
+// API routes:
+app.post("/api", bodyParser.json(), handlePostRequest);
+app.get("/api", handleGetRequest);
+
+// Serve static files from the React app:
 app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
-app.post("/api", bodyParser.json(), handlePostRequest); //route POST requests
-app.get("/api", handleGetRequest);
+// Catch-all request handler:
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
+});
+
+// Start listening for requests:
+app.listen(port, () => console.log("Listening at " + port + "."));
 
 /*
   POST requests send the server an array of 
@@ -25,7 +43,7 @@ app.get("/api", handleGetRequest);
 
   In response, they expect an array of objects
   representing the pairings common to the
-  given ingredients:
+  given ingredients, eg:
     [
       {pairing: "apple", affinity:3},
       {pairing: "bacon", affinity:1},
