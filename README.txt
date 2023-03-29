@@ -3,6 +3,7 @@ run 'npm start' from the root directory,
 and connect through http://localhost:5000
 
 To start the production build,
+run 'npm run build' if there have been changes,
 run 'node /server/server.js' from the root directory,
 and connect through http://localhost:5000
 
