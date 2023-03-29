@@ -274,8 +274,7 @@ li {
 }
 
 #inputfield {
-  flex: 2;
-  min-width: min-content;
+  flex: 4;
   max-width: none;
   text-align: center;
   font-size: xx-large;
