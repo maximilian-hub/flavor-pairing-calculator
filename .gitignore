@@ -1,0 +1,5 @@
+client/node_modules/
+server/node_modules/
+*.DS_Store
+server/db copy.sqlite
+client/build/
