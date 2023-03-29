@@ -20,6 +20,7 @@ html {
   background-color: rgba(1, 10, 54, 0.381);
   height: 100%;
   overflow-x: hidden;
+  overflow-y: hidden;
   position: relative;
 }
 
