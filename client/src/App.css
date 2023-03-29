@@ -166,7 +166,7 @@ li {
 .info-section-header {
   display: flex;
   flex-direction: row;
-  height: var(--info-section-header-height);
+  min-height: var(--info-section-header-height);
   cursor: pointer;
   background-color: cornflowerblue;
 }
