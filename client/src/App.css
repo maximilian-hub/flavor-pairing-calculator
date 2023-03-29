@@ -19,6 +19,8 @@ body,
 html {
   background-color: rgba(1, 10, 54, 0.381);
   height: 100%;
+  overflow-x: hidden;
+  position: relative;
 }
 
 body {
