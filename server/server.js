@@ -16,7 +16,7 @@ const corsOptions = {
     "http://localhost:3000",
     "http://localhost:5000",
     "https://flavor-pairing-calculator.onrender.com",
-    "https://www.flavor-pairing-calculator.com",
+    "https://www.flavorpairingcalculator.com",
   ],
   credentials: true,
 };
