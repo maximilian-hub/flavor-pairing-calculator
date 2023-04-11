@@ -1,7 +1,8 @@
 //load packages
 const path = require("path");
-const dbPath = path.join(__dirname, "db.sqlite");
-const db = require("better-sqlite3")(dbPath);
+const dbPath = process.env.DATABASE_PATH;
+const mock_dbPath = path.join(__dirname, "mock_db.sqlite");
+const db = require("better-sqlite3")(dbPath || mock_dbPath);
 const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
