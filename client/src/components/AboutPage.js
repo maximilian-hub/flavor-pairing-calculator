@@ -158,15 +158,8 @@ const devContent = (
 //prettier-ignore
 const futureContent = (
   <>
-    <p>
-      I'd love to work more on this, but my life situation puts other demands on
-      me. Ultimately, this app exists to demonstrate my ability to build
-      software to potential employers. So for now, updates will be few and far
-      between. 
-    </p>
-    <br />
     <ul>
-      Work I'd like to do:
+      Work I'd like to do on this:
       <li>• clean database</li>
       <li>• add way more pairings</li>
       <li>• redesign the layout</li>
