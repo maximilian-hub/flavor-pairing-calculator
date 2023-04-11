@@ -1,0 +1,6 @@
+[submodule "data"]
+	path = data
+	url = git@github.com:maximilian-hub/fpc-data.git
+[submodule "server/data"]
+	path = server/data
+	url = git@github.com:maximilian-hub/fpc-data.git

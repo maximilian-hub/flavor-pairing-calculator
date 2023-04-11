@@ -20,13 +20,12 @@ export default function ContactPage() {
         Subject: formState.subject,
         Body:
           "given email: " + formState.email + "<br><br>" + formState.message,
-      }).then(() => alert("email sent....?"));
+      }).then(() => alert("Thanks for your input! 🥰"));
     }
   }
 
   function handleFormChange(event) {
     setFormState({ ...formState, [event.target.name]: event.target.value }); //TODO: learn this syntax
-    console.log(`formState changed:\n${JSON.stringify(formState)}`);
   }
 
   return (
