@@ -3,6 +3,7 @@ import "./App.css";
 import InputField from "./components/InputField.js";
 import BodyPanel from "./components/BodyPanel.js";
 import Subpanel from "./components/Subpanel.js";
+import IntroSplash from "./components/IntroSplash";
 
 let ALL_INGREDIENT_NAMES = [];
 getAllIngredientNames().then((response) => {
@@ -133,6 +134,7 @@ function App() {
   //component tree:
   return (
     <>
+      <IntroSplash />
       <InputField
         addRequestedIngredient={addRequestedIngredient}
         handleRandomButton={handleRandomButton}

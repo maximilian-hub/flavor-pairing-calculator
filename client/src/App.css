@@ -565,3 +565,12 @@ li {
 .hastooltip:hover .tooltip {
   visibility: visible;
 }
+
+/* SPLASH PAGE */
+#intro-splash {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background-color: red;
+  z-index: 999;
+}
