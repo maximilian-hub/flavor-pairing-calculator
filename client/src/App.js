@@ -4,6 +4,7 @@ import InputField from "./components/InputField.js";
 import BodyPanel from "./components/BodyPanel.js";
 import Subpanel from "./components/Subpanel.js";
 import IntroSplash from "./components/IntroSplash";
+import Cookies from "js-cookie";
 
 let ALL_INGREDIENT_NAMES = [];
 getAllIngredientNames().then((response) => {
@@ -18,10 +19,20 @@ function App() {
   const [forbiddenIngredients, setForbiddenIngredients] = useState([]);
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 600;
+  const [displaySplash, setDisplaySplash] = useState(false);
 
+  // to run when component mounts:
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
+
+    // cookies:
+    const visited = Cookies.get("visited");
+    if (!visited) {
+      setDisplaySplash(true);
+      Cookies.set("visited", "true", { expires: 30 }); //cookie expires in 30 days
+    }
+
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -134,7 +145,7 @@ function App() {
   //component tree:
   return (
     <>
-      <IntroSplash />
+      {displaySplash ? <IntroSplash /> : null}
       <InputField
         addRequestedIngredient={addRequestedIngredient}
         handleRandomButton={handleRandomButton}
