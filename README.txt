@@ -1,11 +1,14 @@
-To start the development build, 
-run 'npm start' from the root directory,
-and connect through http://localhost:5000
+To run locally, navigate to root 
+directory and run:
+  cd server
+  node server.js
+  cd ../client
+  npm start
+Connect through a browser at http://localhost:3000/
 
-To start the production build,
-run 'npm run build' if there have been changes,
-run 'node /server/server.js' from the root directory,
-and connect through http://localhost:5000
+
+
+
 
 
 
