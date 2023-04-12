@@ -11,11 +11,7 @@ getAllIngredientNames().then((response) => {
 
 function App() {
   //state
-  const [requestedIngredients, setRequestedIngredients] = useState([
-    "apple",
-    "chicken",
-  ]);
-
+  const [requestedIngredients, setRequestedIngredients] = useState(["apple"]);
   const [resultIngredients, setResultIngredients] = useState([]);
   const [mismatchedIngredients, setMismatchedIngredients] = useState([]);
   const [forbiddenIngredients, setForbiddenIngredients] = useState([]);
