@@ -567,10 +567,65 @@ li {
 }
 
 /* SPLASH PAGE */
-#intro-splash {
+#splash-overlay.active {
   position: absolute;
-  width: 500px;
-  height: 500px;
-  background-color: red;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+  transition: 500ms ease-out all;
+}
+
+#splash-overlay.inactive {
+  visibility: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  z-index: 99;
+  transition: 500ms ease-out all;
+}
+
+#splash-main {
+  position: relative;
+  background-color: var(--light-blue);
+  opacity: 1;
   z-index: 999;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  width: 80%;
+  height: 80%;
+  min-width: 300px;
+  min-height: 200px;
+  overflow: auto;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 1);
+}
+
+#splash-button {
+  height: 40px;
+  width: 120px;
+  margin: auto;
+  margin-top: 10px;
+  border-radius: 5px;
+  border-color: rgb(67, 113, 199);
+  border-style: solid;
+  background-color: rgb(142, 176, 239);
+  color: var(--dark-blue);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#splash-button:hover {
+  border-color: var(--fpc-green);
+  font-size: large;
 }
