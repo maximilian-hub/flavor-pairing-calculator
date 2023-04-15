@@ -283,6 +283,7 @@ li {
   text-align: center;
   font-size: xx-large;
   padding-left: 3px;
+  border: none;
   border-style: solid;
   border-color: black;
   border-width: var(--inputfield-border-width);
