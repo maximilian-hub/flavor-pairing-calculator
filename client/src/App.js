@@ -66,7 +66,7 @@ function App() {
   }, [requestedIngredients]);
 
   function addRequestedIngredient(ingredient) {
-    ingredient = ingredient.replaceAll(" ", "_");
+    ingredient = ingredient.replaceAll(" ", "_").toLowerCase();
 
     if (!ALL_INGREDIENT_NAMES.includes(ingredient)) {
       //if it's not a valid ingredient

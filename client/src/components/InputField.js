@@ -23,12 +23,13 @@ export default function InputField(props) {
       // if input field is empty, remove the autocomplete panel
       setAutoComplete([]);
     } else {
-      let suggestions = props.getAutocompleteSuggestions(e.target.value);
+      let searchString = e.target.value.toLowerCase();
+      let suggestions = props.getAutocompleteSuggestions(searchString);
       setAutoComplete(
         <AutoCompletePanel
           suggestions={suggestions}
           addRequestedIngredient={props.addRequestedIngredient}
-          searchValue={e.target.value}
+          searchValue={searchString}
           clearInput={() => {
             e.target.value = "";
             setAutoComplete([]);
