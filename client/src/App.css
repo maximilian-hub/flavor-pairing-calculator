@@ -271,6 +271,7 @@ li {
   margin-top: var(--inputfield-container-vertical-margin);
   margin-bottom: var(--inputfield-container-vertical-margin);
   padding: 3px;
+  border-radius: 20px;
 }
 
 #inputfield-spacer {
@@ -283,7 +284,6 @@ li {
   text-align: center;
   font-size: xx-large;
   padding-left: 3px;
-  outline: none;
   border-style: solid;
   border-color: black;
   border-width: var(--inputfield-border-width);
