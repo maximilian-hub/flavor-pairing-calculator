@@ -27,25 +27,7 @@ const fpcContent = (
 const faqContent = (
   <>
     <p>
-      <b>Why are some ingredients bolded/capitalized?</b>
-      <br />
-      In the Flavor Bible, an ingredient's formatting indicates how
-      popular/strong a pairing is:
-      <ul>
-        <li>
-          [normal text] pairings were recommended by at least one chef (or me).
-        </li>
-        <li>
-          [<b>bold text</b>] pairings were recommended by a handful of chefs.
-        </li>
-        <li>
-          [<b>BOLD CAPS</b>] pairings were recommended by a lot of chefs.
-        </li>
-        <li>
-          [<b>*BOLD CAPS WITH AN ASTERISK</b>] are considered "holy grail"
-          pairings, timeless combinations recommended by nearly everyone.
-        </li>
-      </ul>
+      <Link to="/contact">Ask me something</Link>, maybe it'll pop up here!
     </p>
   </>
 );
@@ -113,12 +95,21 @@ const dataContent = (
         taste good with lemon zest. I leave it to the chef's judgement to decide
         how to incorporate a flavor into a dish.
       </li>
+      <br />
+      <li>
+        • I have{" "}
+        <b>
+          added more pairings according to my taste, as well as user-suggested
+          pairings.{" "}
+        </b>
+        (If a user suggests a pairing, I only add it if I've verified the taste
+        personally.)
+      </li>
     </ul>
     <br />
     <p>
-      Smaller changes include adding some pairings of my own (see "instant
-      ramen"), enforcing consistent phrasing, correcting spelling errors, and
-      uh, introducing spelling errors.{" "}
+      Smaller changes include enforcing consistent phrasing, correcting spelling
+      errors, and uh, introducing spelling errors.{" "}
       <Link to="/contact">Let me know if you find any.</Link>
     </p>
   </>
