@@ -289,6 +289,7 @@ li {
   border-width: var(--inputfield-border-width);
   border-radius: 20px;
   text-transform: lowercase;
+  -webkit-appearance: none;
 }
 
 #inputfield-container:focus-within #inputfield {
@@ -296,6 +297,7 @@ li {
   outline-style: solid;
   outline-width: 2px;
   outline-color: var(--fpc-green);
+  -webkit-appearance: none;
 }
 
 #inputfield-container:focus-within .autocomplete-panel {
