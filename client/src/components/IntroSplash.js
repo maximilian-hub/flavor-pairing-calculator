@@ -25,8 +25,8 @@ export default function IntroSplash(props) {
             <div id="tut-autocomplete" />
           </div>
           <i>
-            Use the arrow keys to navigate autosuggestions. Hit Enter to add the
-            highlighted suggestion to your search.
+            Scroll, or use the arrow keys to navigate autosuggestions. Hit Enter
+            to add the highlighted suggestion to your search.
           </i>
           <br />
           <br />
