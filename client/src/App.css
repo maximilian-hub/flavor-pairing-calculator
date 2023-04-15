@@ -7,6 +7,7 @@
   --light-blue: rgb(124, 164, 238);
   --fpc-green: rgb(52, 175, 0);
   --info-section-header-height: 60px;
+  --tut-img-height: 50px;
 }
 
 * {
@@ -607,6 +608,7 @@ li {
   min-height: 200px;
   overflow: auto;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 1);
+  text-align: center;
 }
 
 #splash-button {
@@ -628,4 +630,62 @@ li {
 #splash-button:hover {
   border-color: var(--fpc-green);
   font-size: large;
+}
+
+.tut-image-wrapper {
+  width: 100%;
+  display: flex row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+#tut-searchbar {
+  flex: 1;
+  background-image: url("images/search_bar.png");
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: var(--tut-img-height);
+  width: auto;
+}
+
+#tut-autocomplete {
+  flex: 1;
+  background-image: url("images/autocomplete.png");
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 90px;
+  width: auto;
+}
+
+#tut-removebutton {
+  flex: 1;
+  background-image: url("images/remove_button.png");
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: var(--tut-img-height);
+  width: auto;
+}
+
+#tut-addbutton {
+  flex: 1;
+  background-image: url("images/add_button.png");
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: var(--tut-img-height);
+  width: auto;
+}
+
+#tut-randombutton {
+  flex: 1;
+  background-image: url("images/random_button.png");
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: var(--tut-img-height);
+  width: auto;
 }
