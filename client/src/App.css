@@ -294,9 +294,7 @@ li {
 
 #inputfield-container:focus-within #inputfield {
   border-color: var(--fpc-green);
-  outline-style: solid;
-  outline-width: 2px;
-  outline-color: var(--fpc-green);
+  box-shadow: 0 0 0 2px var(--fpc-green); /* Replace outline with box-shadow */
   -webkit-appearance: none;
 }
 
