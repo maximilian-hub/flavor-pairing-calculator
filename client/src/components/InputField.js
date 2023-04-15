@@ -6,8 +6,6 @@ export default function InputField(props) {
   const inputRef = useRef();
 
   function handleKeyDown(e) {
-    console.log(e.keyCode);
-
     if (e.keyCode === 13) {
       //enter
       props.addRequestedIngredient(e.target.value);
