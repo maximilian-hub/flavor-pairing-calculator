@@ -691,28 +691,3 @@ li {
   height: var(--tut-img-height);
   width: auto;
 }
-
-/*TODO: remove this if it didn't work*/
-@media only screen and (min-device-width: 320px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
-  #inputfield {
-    flex: 4;
-    max-width: none;
-    text-align: center;
-    font-size: xx-large;
-    padding-left: 3px;
-    border-style: solid;
-    border-color: black;
-    border-width: var(--inputfield-border-width);
-    border-radius: 20px;
-    text-transform: lowercase;
-    -webkit-appearance: none;
-  }
-
-  #inputfield-container:focus-within #inputfield {
-    border-color: var(--fpc-green);
-    outline-style: solid;
-    outline-width: 2px;
-    outline-color: var(--fpc-green);
-    -webkit-appearance: none;
-  }
-}
