@@ -32,17 +32,20 @@ export default function ContactPage() {
     <InfoPage className="info-page">
       <InfoSection header="Contact" active="true">
         <div id="contact-links">
-          <a href="https://www.linkedin.com/in/maximilian-spedale/">
+          <a
+            href="https://www.linkedin.com/in/maximilian-spedale/"
+            target="_blank"
+          >
             <i className="fa-brands fa-linkedin linkedin" title="LinkedIn">
               <div className="icon-bg"></div>
             </i>
           </a>
-          <a href="https://github.com/maximilian-hub">
+          <a href="https://github.com/maximilian-hub" target="_blank">
             <i className="fa-brands fa-square-github github" title="GitHub">
               <div className="icon-bg"></div>
             </i>
           </a>
-          <a href="https://www.twitter.com">
+          <a href="https://www.twitter.com/max__fpc" target="_blank">
             <i className="fa-brands fa-square-twitter twitter" title="Twitter">
               <div className="icon-bg"></div>
             </i>

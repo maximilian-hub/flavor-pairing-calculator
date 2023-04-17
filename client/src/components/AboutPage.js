@@ -16,7 +16,7 @@ const fpcContent = (
       build when I got serious about establishing myself in tech. It's my first
       "capstone" portfolio project, a full-stack app with a Node.js backend, a
       SQL database, and a React.js frontend.{" "}
-      <a href="https://github.com/maximilian-hub/flavor-pairing-calculator">
+      <a href="https://github.com/maximilian-hub/flavor-pairing-calculator" target="_blank">
         Here's the github repo
       </a>
       , if you're curious about the code.
@@ -36,7 +36,10 @@ const dataContent = (
   <>
     <p>
       Most of it came from the "Matching Flavors" section of{" "}
-      <a href="https://karenandandrew.com/books/the-flavor-bible/">
+      <a
+        href="https://karenandandrew.com/books/the-flavor-bible/"
+        target="_blank"
+      >
         The Flavor Bible
       </a>
       , an incredible reference of flavor pairings put together by that
@@ -119,7 +122,7 @@ const devContent = (
   <>
     <p>
       I'm Maximilian Spedale, an{" "}
-      <a href="https://www.linkedin.com/in/maximilian-spedale/">
+      <a href="https://www.linkedin.com/in/maximilian-spedale/" target="_blank">
         aspiring software developer
       </a>{" "}
       and lifelong orphan of New Orleans.

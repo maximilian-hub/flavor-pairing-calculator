@@ -33,15 +33,21 @@ export default function SupportPage() {
     <>
       If you or anyone you know is hiring a junior developer,{" "}
       <Link to="/contact">please reach out</Link>, or{" "}
-      <a href="https://www.linkedin.com/in/maximilian-spedale/">
+      <a href="https://www.linkedin.com/in/maximilian-spedale/" target="_blank">
         pass along my LinkedIn and resume
       </a>
       .
       <br />
       <br />
-      If you're already in the industry, I'd love to hear your feedback on [my
-      resume] and/or{" "}
-      <a href="https://github.com/maximilian-hub/flavor-pairing-calculator">
+      If you're already in the industry, I'd love to hear your feedback on{" "}
+      <a href="/maximilian_resume.pdf" target="_blank">
+        my resume
+      </a>{" "}
+      and/or{" "}
+      <a
+        href="https://github.com/maximilian-hub/flavor-pairing-calculator"
+        target="_blank"
+      >
         my code
       </a>
       . I have a lot to learn, but I'm a good student!
