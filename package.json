@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/maximilian-hub/flavor-pairing-calculator/issues"
   },
-  "homepage": "https://github.com/maximilian-hub/flavor-pairing-calculator#readme"
+  "homepage": "https://github.com/maximilian-hub/flavor-pairing-calculator#readme",
+  "dependencies": {
+    "@elasticemail/elasticemail-client": "github:elasticemail/elasticemail-js"
+  }
 }

@@ -14,6 +14,7 @@ To run locally, navigate to root directory and run:
   npm start
 Connect through a browser at http://localhost:3000/
 
+Local builds will be unable to send emails through the contact form.
 
 
 

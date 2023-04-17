@@ -5,22 +5,26 @@ import InfoPage from "./InfoPage.js";
 export default function ContactPage() {
   const [formState, setFormState] = useState({});
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     console.log("submit button clicked");
 
-    if (window.Email) {
-      window.Email.send({
-        Host: "smtp.elasticemail.com",
-        Username: "flavorpairingcalculator@gmail.com",
-        Password: "6F010AAAD1FAE6E6765AF534F31AF46F9A1B", //TODO: encrypt this
-        Port: 2525,
-        To: "flavorpairingcalculator+" + formState.extension + "@gmail.com",
-        From: "flavorpairingcalculator@gmail.com",
-        Subject: formState.subject,
-        Body:
-          "given email: " + formState.email + "<br><br>" + formState.message,
-      }).then(() => alert("Thanks for your input! 🥰"));
+    // ask server to send email:
+    const response = await fetch("/email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        extention: formState.extension,
+        subject: formState.subject,
+        email: formState.email,
+        message: formState.message,
+      }),
+    });
+
+    if (response.status === 200) {
+      alert("Thanks for your message! 🥰");
+    } else {
+      alert(response.status);
     }
   }
 
@@ -70,7 +74,7 @@ export default function ContactPage() {
               <select name="extension" id="" onChange={handleFormChange}>
                 <option value="">- What is this regarding? -</option>
                 <option value="leads">Job Lead</option>
-                <option value="db">Database</option>
+                <option value="db">Database Suggestion</option>
                 <option value="bugreport">Bug Report</option>
                 <option value="featurerequest">Feature Request</option>
                 <option value="advice">Advice</option>

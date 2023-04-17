@@ -1,4 +1,4 @@
-//load packages
+//load packages:
 const path = require("path");
 const dbPath = process.env.DATABASE_PATH;
 const mock_dbPath = path.join(__dirname, "mock_db.sqlite");
@@ -7,6 +7,13 @@ const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const ElasticEmail = require("@elasticemail/elasticemail-client");
+
+//email stuff:
+let defaultClient = ElasticEmail.ApiClient.instance;
+let apikey = defaultClient.authentications["apikey"];
+apikey.apiKey = process.env.EMAIL_API_KEY;
+let email_api = new ElasticEmail.EmailsApi();
 
 //server initialization:
 const app = express(); //start application
@@ -26,6 +33,7 @@ app.use(cors(corsOptions));
 // API routes:
 app.post("/api", bodyParser.json(), handlePostRequest);
 app.get("/api", handleGetRequest);
+app.post("/email", bodyParser.json(), handleFormSubmission);
 
 // Serve static files from the React app:
 app.use(express.static(path.join(__dirname, "..", "client", "build")));
@@ -85,6 +93,44 @@ async function handleGetRequest(request, response) {
     status: "success",
     body: tableNames,
   });
+}
+
+async function handleFormSubmission(request, response) {
+  email_api.emailsPost(
+    ElasticEmail.EmailMessageData.constructFromObject({
+      Recipients: [
+        new ElasticEmail.EmailRecipient(
+          "flavorpairingcalculator+" + request.body.extension + "@gmail.com"
+        ),
+      ],
+      Content: {
+        Body: [
+          ElasticEmail.BodyPart.constructFromObject({
+            ContentType: "HTML",
+            Content:
+              "given email: " +
+              request.body.email +
+              "<br><br>" +
+              request.body.message,
+          }),
+        ],
+        Subject: request.body.subject,
+        From: "flavorpairingcalculator@gmail.com",
+      },
+    }),
+    (error, data, res) => {
+      if (error) {
+        console.log(error);
+        response.json({
+          status: "error",
+          body: error,
+        });
+      } else {
+        console.log("email success?");
+        response.json({ status: "success" });
+      }
+    }
+  );
 }
 
 /*
