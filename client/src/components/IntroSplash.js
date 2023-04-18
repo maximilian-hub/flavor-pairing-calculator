@@ -25,8 +25,8 @@ export default function IntroSplash(props) {
             <div id="tut-autocomplete" />
           </div>
           <i>
-            Scroll, or use the arrow keys to navigate autosuggestions. Hit Enter
-            to add the highlighted suggestion to your search.
+            Scroll, or use the arrow keys to navigate autosuggestions. Click, or
+            hit Enter to add the highlighted suggestion to your search.
           </i>
           <br />
           <br />
@@ -47,7 +47,7 @@ export default function IntroSplash(props) {
           <div className="tut-image-wrapper">
             <div id="tut-randombutton" />
           </div>
-          <i>Click the dice to add a random ingredient to your search.</i>
+          <i>Click the dice to add a random ingredient to your search! 🤪</i>
           <br />
           <br />
           <ul>
@@ -64,6 +64,11 @@ export default function IntroSplash(props) {
             <i>
               Results are formatted according to the popularity of the pairing.
             </i>
+            <br />
+            <br />I use this for meal planning all the time now, I hope you like
+            it too. 😊 Took me nearly 200 hours to make, so if you find it
+            useful, and you'd like to help, please check out the Support page to
+            find out how. Cheers! 🥂
           </ul>
           <div id="splash-button" onClick={() => setActive(false)}>
             Let me in!
