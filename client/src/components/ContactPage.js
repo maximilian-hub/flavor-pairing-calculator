@@ -5,27 +5,26 @@ import InfoPage from "./InfoPage.js";
 export default function ContactPage() {
   const [formState, setFormState] = useState({});
 
+  // triggered on form submission:
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log("submit button clicked");
 
     // ask server to send email:
-    const response = await fetch("/email", {
+    await fetch("/email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        extention: formState.extension,
+        extension: formState.extension,
         subject: formState.subject,
         email: formState.email,
         message: formState.message,
       }),
+    }).catch((error) => {
+      console.log("Error sending email:", error);
+      alert("There was an error 😔");
     });
 
-    if (response.status === 200) {
-      alert("Thanks for your message! 🥰");
-    } else {
-      alert(response.status);
-    }
+    alert("Thanks for the message 🥰");
   }
 
   function handleFormChange(event) {

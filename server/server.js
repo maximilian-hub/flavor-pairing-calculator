@@ -12,7 +12,8 @@ const ElasticEmail = require("@elasticemail/elasticemail-client");
 //email stuff:
 let defaultClient = ElasticEmail.ApiClient.instance;
 let apikey = defaultClient.authentications["apikey"];
-apikey.apiKey = process.env.EMAIL_API_KEY;
+apikey.apiKey =
+  "A17DDB42EEBBA3D52942349E2FF017F4A5C1AEFA71AFF221C9D5442FE33182196DDDDD5113C044EB18B587477C9334C5";
 let email_api = new ElasticEmail.EmailsApi();
 
 //server initialization:
@@ -95,7 +96,8 @@ async function handleGetRequest(request, response) {
   });
 }
 
-async function handleFormSubmission(request, response) {
+function handleFormSubmission(request, response) {
+  console.log("Email request recieved.");
   email_api.emailsPost(
     ElasticEmail.EmailMessageData.constructFromObject({
       Recipients: [
@@ -120,13 +122,13 @@ async function handleFormSubmission(request, response) {
     }),
     (error, data, res) => {
       if (error) {
-        console.log(error);
-        response.json({
+        console.log("   " + error);
+        response.status(500).json({
           status: "error",
           body: error,
         });
       } else {
-        console.log("email success?");
+        console.log("   email success?");
         response.json({ status: "success" });
       }
     }
