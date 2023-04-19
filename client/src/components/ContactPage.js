@@ -25,6 +25,7 @@ export default function ContactPage() {
     });
 
     alert("Thanks for the message 🥰");
+    document.getElementById("email-form").reset();
   }
 
   function handleFormChange(event) {
@@ -57,7 +58,12 @@ export default function ContactPage() {
 
         <h3>Email me:</h3>
         <div className="email-form-container">
-          <form className="email-form" method="post" onSubmit={handleSubmit}>
+          <form
+            id="email-form"
+            className="email-form"
+            method="post"
+            onSubmit={handleSubmit}
+          >
             <div>
               <label htmlFor="email">email:</label>
               <input
