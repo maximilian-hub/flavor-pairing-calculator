@@ -61,8 +61,7 @@ app.listen(port, () => console.log("Listening at " + port + "."));
     ]
 */
 async function handlePostRequest(request, response) {
-  console.log("POST request recieved:");
-  console.log(request.body); //should be a list of ingredient names
+  console.log("POST request recieved:", request.body);
 
   const commonPairings = await getCommonPairings(request.body.ingredients);
   const mismatchedIngredients = getMismatchedIngredients(
@@ -71,10 +70,6 @@ async function handlePostRequest(request, response) {
   const forbiddenIngredients = getForbiddenIngredients(
     request.body.ingredients
   );
-
-  console.log("Sending off common pairings.");
-  console.log(`mismatchedIngredients:\n${mismatchedIngredients}`);
-  console.log(`forbiddenIngredients:\n${forbiddenIngredients}`);
 
   response.json({
     status: "success",
@@ -86,7 +81,7 @@ async function handlePostRequest(request, response) {
 
 async function handleGetRequest(request, response) {
   //client GET requests are always for a list of all db table names
-  console.log("GET request recieved:");
+  console.log("---------- New connection!");
 
   const tableNames = await getTableNames();
 
@@ -146,7 +141,6 @@ async function getCommonPairings(requestedIngredients) {
   let allPairings = await getAllPairings(requestedIngredients);
 
   //look for matches
-  console.log("Looking for common pairings...");
   //for each pairing in the first set of pairings,
   for (let i = 0; i < allPairings[0].length; i++) {
     //check if that pairing exists in the remaining sets of pairings
@@ -256,7 +250,6 @@ function getMismatchedIngredients(ingredients) {
       }
     }
   }
-  console.log(`  mismatchedIngredients:\n${mismatchedIngredients}`);
   return mismatchedIngredients;
 }
 
@@ -273,9 +266,6 @@ function getForbiddenIngredients(ingredients) {
   for (let i = 0; i < ingredients.length - 1; i++) {
     for (let j = i + 1; j < ingredients.length; j++) {
       if (isForbiddenPairing(ingredients[i], ingredients[j])) {
-        console.log(
-          `getForbiddenIngredients: Pushing [${ingredients[i]},${ingredients[j]}] to forbiddenIngredients.`
-        );
         forbiddenIngredients.push([ingredients[i], ingredients[j]]);
       } else {
         continue;
@@ -283,7 +273,6 @@ function getForbiddenIngredients(ingredients) {
     }
   }
 
-  console.log(`  forbiddenIngredients:\n${forbiddenIngredients}`);
   return forbiddenIngredients;
 }
 
