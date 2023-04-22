@@ -8,7 +8,8 @@ export default function IntroSplash(props) {
       <div id="splash-overlay" className={active ? "active" : "inactive"}>
         <div id="splash-main">
           Welcome! This site lets you look up delicious pairing suggestions for
-          whatever combination of stuff you have on hand. Here's how to use it:
+          whatever combination of stuff you have on hand. It's intended for
+          intermediate to advanced cooks. Here's how to use it:
           <br />
           <br />
           <div className="tut-image-wrapper">
@@ -71,6 +72,8 @@ export default function IntroSplash(props) {
             find out how. Cheers! 🥂
           </ul>
           <div id="splash-button" onClick={() => setActive(false)}>
+            Cheers! 🥂
+            <br />
             Let me in!
           </div>
         </div>
