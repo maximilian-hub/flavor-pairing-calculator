@@ -73,8 +73,6 @@ export default function IntroSplash(props) {
           </ul>
           <div id="splash-button" onClick={() => setActive(false)}>
             Cheers! 🥂
-            <br />
-            Let me in!
           </div>
         </div>
       </div>
